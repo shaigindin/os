@@ -73,13 +73,3 @@ double osm_syscall_time(unsigned int iterations){
     return returnval;
 }
 
-
-int main(){
-    std::cout << "Hello, World!" << std::endl;
-    unsigned int iterations = 10000;
-    double val1,val2,val3;
-    val1 = osm_operation_time(iterations);
-    val2 = osm_function_time(iterations);
-    val3 = osm_syscall_time(iterations);
-    return 0;
-}
