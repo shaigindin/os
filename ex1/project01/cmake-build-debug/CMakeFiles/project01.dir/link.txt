@@ -1,0 +1,1 @@
+/usr/bin/c++  -Wall -std=c++11 -funroll-loops -g   CMakeFiles/project01.dir/osm.cpp.o  -o project01 

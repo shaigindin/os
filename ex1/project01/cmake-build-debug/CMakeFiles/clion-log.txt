@@ -1,0 +1,4 @@
+/usr/local/jetbrains/clion/2019.2.1/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /cs/usr/yoav/semester05/os/projects/ex1/project01
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /cs/usr/yoav/semester05/os/projects/ex1/project01/cmake-build-debug

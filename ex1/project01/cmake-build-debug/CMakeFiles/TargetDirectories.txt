@@ -1,0 +1,3 @@
+/cs/usr/yoav/semester05/os/projects/ex1/project01/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/cs/usr/yoav/semester05/os/projects/ex1/project01/cmake-build-debug/CMakeFiles/project01.dir
+/cs/usr/yoav/semester05/os/projects/ex1/project01/cmake-build-debug/CMakeFiles/edit_cache.dir

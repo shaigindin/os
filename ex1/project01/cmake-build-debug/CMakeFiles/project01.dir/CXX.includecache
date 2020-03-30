@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cs/usr/yoav/semester05/os/projects/ex1/project01/osm.cpp
+osm.h
+/cs/usr/yoav/semester05/os/projects/ex1/project01/osm.h
+iostream
+-
+sys/time.h
+-
+
+/cs/usr/yoav/semester05/os/projects/ex1/project01/osm.h
+
