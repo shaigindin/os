@@ -4,7 +4,7 @@
 
 
 int empty_func() {
-
+    return 0;
 }
 
 /* Time measurement function for a simple arithmetic operation.
@@ -15,16 +15,18 @@ double osm_operation_time(unsigned int iterations){
     if (iterations == 0){
         return -1;
     }
-    struct timeval time_before_op;
-    struct timeval time_after_op;
+    struct timeval time_before_op{};
+    struct timeval time_after_op{};
     gettimeofday(&time_before_op , NULL);
-    for (int i = 0; i <= iterations; ++i)
+    unsigned  int x=15;
+    for (unsigned int i = 0; i <= iterations; ++i)
     {
-        420 - 69; // operation
+        x += x + 69; // operation
     }
     gettimeofday(&time_after_op , NULL);
-    std::cout << ((time_after_op.tv_usec - time_before_op.tv_usec) * 1000) / iterations  << " nano seconds"<< std::endl;
-    return 0.0;
+    double returnval = (double)(( (unsigned long)time_after_op.tv_usec - (unsigned long)time_before_op.tv_usec) * 1000)
+                       / (double)iterations ;
+    return returnval;
 }
 
 
@@ -36,16 +38,17 @@ double osm_function_time(unsigned int iterations){
     if (iterations == 0){
         return -1;
     }
-    struct timeval time_before_op;
-    struct timeval time_after_op;
+    struct timeval time_before_op{};
+    struct timeval time_after_op{};
     gettimeofday(&time_before_op , NULL);
-    for (int i = 0; i <= iterations; ++i)
+    for (unsigned  int i = 0; i <= iterations; ++i)
     {
         empty_func(); // operation
     }
     gettimeofday(&time_after_op , NULL);
-    std::cout << ((time_after_op.tv_usec - time_before_op.tv_usec) * 1000) / iterations  << " nano seconds"<< std::endl;
-    return 0.0;
+    double returnval = (double)(( (unsigned long)time_after_op.tv_usec - (unsigned long)time_before_op.tv_usec) * 1000)
+                       / (double)iterations ;
+    return returnval;
 }
 
 
@@ -57,23 +60,26 @@ double osm_syscall_time(unsigned int iterations){
     if (iterations == 0){
         return -1;
     }
-    struct timeval time_before_op;
-    struct timeval time_after_op;
+    struct timeval time_before_op{};
+    struct timeval time_after_op{};
     gettimeofday(&time_before_op , NULL);
-    for (int i = 0; i <= iterations; ++i)
+    for (unsigned  int i = 0; i <= iterations; ++i)
     {
         OSM_NULLSYSCALL; // operation
     }
     gettimeofday(&time_after_op , NULL);
-    std::cout << ((time_after_op.tv_usec - time_before_op.tv_usec) * 1000) / iterations  << " nano seconds"<< std::endl;
-    return 0.0;
+    double returnval = (double)(( (unsigned long)time_after_op.tv_usec - (unsigned long)time_before_op.tv_usec) * 1000)
+            / (double)iterations ;
+    return returnval;
 }
 
 
 int main(){
     std::cout << "Hello, World!" << std::endl;
-    osm_operation_time(1000000);
-    osm_function_time(1000000);
-    osm_syscall_time(1000000);
+    unsigned int iterations = 10000;
+    double val1,val2,val3;
+    val1 = osm_operation_time(iterations);
+    val2 = osm_function_time(iterations);
+    val3 = osm_syscall_time(iterations);
     return 0;
 }
