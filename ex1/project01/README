@@ -1,0 +1,29 @@
+shai.gindin, yoav
+shai gindin (301315537), yoav levy (314963257)
+EX: 1
+
+FILES:
+osm.cpp -- the source file which includes the functions osm_syscall_time, osm_function_time, osm_operation_time.
+osme.h -- the Header for osm.cpp
+graph.png  -- graph of the running time of the 3 functions running with parameter iteration=1000.
+makefile - the makefile which generates libosm.a 
+
+REMARKS:
+No special remarks this time.
+
+ANSWERS:
+
+part a:
+the program WhatIDo creates the folder Welcome and inside creates the folder To. 
+inside the folder To it creates a link to a file name OS2020.
+inside the file the app insert the string 
+"mercydude\nIf you haven't read the course guidelines yet --- do it right now!\n*"
+when the start simbols the parmeter the app gets. 
+if the app has no parameter it wont creates those folders and link.
+after that, the app unlink OS2020 (delete the file) and remove the folders
+
+part b:
+in this part we use loop unrolling in two methods. 
+1) we run the same command (for example function call) 10 times instead one in each iteration.
+2) when we compile the file we use the flag -funroll-all-loops. this flag should  unroll all loops 
+automatically without any efforts by the programmer.
