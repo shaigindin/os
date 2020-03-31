@@ -2,6 +2,9 @@
 #include <iostream>
 #include <sys/time.h>
 
+// constants
+#define UNROLLING_FAC 10
+
 
 int empty_func() {
     return 0;
@@ -12,21 +15,29 @@ int empty_func() {
    and -1 upon failure.
    */
 double osm_operation_time(unsigned int iterations){
+    int var = 1;
     if (iterations == 0){
         return -1;
     }
-    struct timeval time_before_op{};
-    struct timeval time_after_op{};
+    struct timeval time_before_op;
+    struct timeval time_after_op;
     gettimeofday(&time_before_op , NULL);
-    unsigned  int x=15;
-    for (unsigned int i = 0; i <= iterations; ++i)
+    for (unsigned int i = 0; i < iterations / UNROLLING_FAC; i += UNROLLING_FAC)
     {
-        x += x + 69; // operation
+        var += 20; // operation
+        var += 20; // operation
+        var += 20; // operation
+        var += 20; // operation
+        var += 20; // operation
+        var += 20; // operation
+        var += 20; // operation
+        var += 20; // operation
+        var += 20; // operation
+        var += 20; // operation
     }
     gettimeofday(&time_after_op , NULL);
-    double returnval = (double)(( (unsigned long)time_after_op.tv_usec - (unsigned long)time_before_op.tv_usec) * 1000)
-                       / (double)iterations ;
-    return returnval;
+    return (((1e9 * (double) (time_after_op.tv_sec - time_before_op.tv_sec)) +
+    1000 * (double) (time_after_op.tv_usec - time_before_op.tv_usec)) / iterations);
 }
 
 
@@ -38,17 +49,25 @@ double osm_function_time(unsigned int iterations){
     if (iterations == 0){
         return -1;
     }
-    struct timeval time_before_op{};
-    struct timeval time_after_op{};
+    struct timeval time_before_op;
+    struct timeval time_after_op;
     gettimeofday(&time_before_op , NULL);
-    for (unsigned  int i = 0; i <= iterations; ++i)
+    for (unsigned int i = 0; i < iterations / UNROLLING_FAC; i += UNROLLING_FAC)
     {
+        empty_func(); // operation
+        empty_func(); // operation
+        empty_func(); // operation
+        empty_func(); // operation
+        empty_func(); // operation
+        empty_func(); // operation
+        empty_func(); // operation
+        empty_func(); // operation
+        empty_func(); // operation
         empty_func(); // operation
     }
     gettimeofday(&time_after_op , NULL);
-    double returnval = (double)(( (unsigned long)time_after_op.tv_usec - (unsigned long)time_before_op.tv_usec) * 1000)
-                       / (double)iterations ;
-    return returnval;
+    return (double) (((1e9 * (double) (time_after_op.tv_sec - time_before_op.tv_sec)) +             
+    1000 * (double) (time_after_op.tv_usec - time_before_op.tv_usec)) / iterations);
 }
 
 
@@ -60,16 +79,23 @@ double osm_syscall_time(unsigned int iterations){
     if (iterations == 0){
         return -1;
     }
-    struct timeval time_before_op{};
-    struct timeval time_after_op{};
+    struct timeval time_before_op;
+    struct timeval time_after_op;
     gettimeofday(&time_before_op , NULL);
-    for (unsigned  int i = 0; i <= iterations; ++i)
+    for (unsigned int i = 0; i < iterations / UNROLLING_FAC; i += UNROLLING_FAC)
     {
+        OSM_NULLSYSCALL; // operation
+        OSM_NULLSYSCALL; // operation
+        OSM_NULLSYSCALL; // operation
+        OSM_NULLSYSCALL; // operation
+        OSM_NULLSYSCALL; // operation
+        OSM_NULLSYSCALL; // operation
+        OSM_NULLSYSCALL; // operation
+        OSM_NULLSYSCALL; // operation
+        OSM_NULLSYSCALL; // operation
         OSM_NULLSYSCALL; // operation
     }
     gettimeofday(&time_after_op , NULL);
-    double returnval = (double)(( (unsigned long)time_after_op.tv_usec - (unsigned long)time_before_op.tv_usec) * 1000)
-            / (double)iterations ;
-    return returnval;
+    return (double) (((1e9 * (double) (time_after_op.tv_sec - time_before_op.tv_sec)) +             
+    1000 * (double) (time_after_op.tv_usec - time_before_op.tv_usec)) / iterations);
 }
-
