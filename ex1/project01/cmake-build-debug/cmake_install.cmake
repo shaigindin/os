@@ -1,4 +1,4 @@
-# Install script for directory: /cs/usr/yoav/semester05/os/projects/ex1/project01
+# Install script for directory: /home/mercydude/University/semester05/os/projects/ex1/project01
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/cs/usr/yoav/semester05/os/projects/ex1/project01/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/mercydude/University/semester05/os/projects/ex1/project01/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

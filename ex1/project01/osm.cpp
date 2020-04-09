@@ -6,8 +6,7 @@
 #define UNROLLING_FAC 10
 
 
-int empty_func() {
-    return 0;
+void empty_func() {
 }
 
 /* Time measurement function for a simple arithmetic operation.
@@ -21,7 +20,10 @@ double osm_operation_time(unsigned int iterations){
     }
     struct timeval time_before_op;
     struct timeval time_after_op;
-    gettimeofday(&time_before_op , NULL);
+    if (gettimeofday(&time_before_op , NULL) != 0){
+        return -1;
+    }
+    if (iterations / UNROLLING_FAC < 0)
     for (unsigned int i = 0; i < iterations / UNROLLING_FAC; i += UNROLLING_FAC)
     {
         var += 20; // operation
@@ -51,7 +53,9 @@ double osm_function_time(unsigned int iterations){
     }
     struct timeval time_before_op;
     struct timeval time_after_op;
-    gettimeofday(&time_before_op , NULL);
+    if (gettimeofday(&time_before_op , NULL) != 0){
+        return -1;
+    }
     for (unsigned int i = 0; i < iterations / UNROLLING_FAC; i += UNROLLING_FAC)
     {
         empty_func(); // operation
@@ -81,7 +85,9 @@ double osm_syscall_time(unsigned int iterations){
     }
     struct timeval time_before_op;
     struct timeval time_after_op;
-    gettimeofday(&time_before_op , NULL);
+    if (gettimeofday(&time_before_op , NULL) != 0){
+        return -1;
+    }
     for (unsigned int i = 0; i < iterations / UNROLLING_FAC; i += UNROLLING_FAC)
     {
         OSM_NULLSYSCALL; // operation

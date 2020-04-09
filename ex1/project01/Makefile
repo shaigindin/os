@@ -15,7 +15,7 @@ TARGETS = $(OSMLIB)
 TAR=tar
 TARFLAGS=-cvf
 TARNAME=ex1.tar
-TARSRCS=$(LIBSRC) Makefile README osm.h
+TARSRCS=$(LIBSRC) Makefile README measurements.png
 
 all: $(TARGETS)
 
@@ -25,9 +25,6 @@ $(TARGETS): $(LIBOBJ)
 
 clean:
 	$(RM) $(TARGETS) $(OSMLIB) $(OBJ) $(LIBOBJ) *~ *core
-
-depend:
-	makedepend -- $(CFLAGS) -- $(SRC) $(LIBSRC)
 
 tar:
 	$(TAR) $(TARFLAGS) $(TARNAME) $(TARSRCS)
