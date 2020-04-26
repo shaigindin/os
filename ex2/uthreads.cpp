@@ -5,19 +5,20 @@
 #include <vector>
 #include <iostream>
 #include <map>
-#include <queue>
 #include <set>
 #include <sys/time.h>
 #include <signal.h>
 #include "Thread.h"
+#include "QueueWrapper.h"
 
+#define READY 1
+#define RUNNING 2
+#define BLOCK 3
 #define MICROSECONDS_TO_SECONDS 1000000
 #define FROM_FUTURE 5
 #define SUCCESS 0
-#define MICRO_TO_SEC 1000000
 #define FAILURE -1
 #define IN_READY_QUEUE true
-#define NOT_IN_READY_QUEUE false
 #define AVAILABLE 0
 #define OCCUPIED 1
 #define MAIN_THREAD_ID 0
@@ -25,7 +26,7 @@
 #define DEAD -2
 
 std::map<int, Thread *> threadList;
-std::queue<int> readyQueue;
+//std::queue<int> readyQueue;
 std::set<int> blocked;
 std::set<int> all;
 int killMe;
@@ -33,21 +34,21 @@ bool hasToKill;
 
 int availableID[MAX_THREAD_NUM]{0};
 int *_quantum_usecs;
-int _size;
 struct sigaction sa;
 struct itimerval timer;
 sigset_t set;
 int totalQuantomCounter{};
+QueueWrapper* readyQueue;
 
 void removeThreadFromReadyQueue(int tid) {
-    std::queue<int> tempQueue;
-    while (!readyQueue.empty()) {
-        if (readyQueue.front() != tid) {
-            tempQueue.push(readyQueue.front());
+    QueueWrapper tempQueue;
+    while (!(*readyQueue).empty()) {
+        if ((*readyQueue).front() != tid) {
+            tempQueue.push((*readyQueue).front());
         }
-        readyQueue.pop();
+        (*readyQueue).pop();
     }
-    readyQueue = tempQueue;
+    (*readyQueue) = tempQueue;
 }
 
 
@@ -98,7 +99,6 @@ int generateID() {
 }
 
 int setTimerWithPriority(int priority) {
-
     timer.it_value.tv_sec = priority / MICROSECONDS_TO_SECONDS;
     timer.it_value.tv_usec = priority % MICROSECONDS_TO_SECONDS;
     timer.it_interval.tv_sec = priority / MICROSECONDS_TO_SECONDS;
@@ -114,13 +114,14 @@ void timer_handler(int sig) {
     //because when compiling with flag Werror it unused parameter and sa.handler must get void     (*sa_handler)(int);
     sig++;
     // if handler called from uthread terminate after killing all other threads except running one
-    if (threadList[readyQueue.front()]->getState() == FINNISHED) {
-        delete threadList[readyQueue.front()];
+    if (threadList[(*readyQueue).front()]->getState() == FINNISHED) {
+        delete threadList[(*readyQueue).front()];
+        delete readyQueue;
         exit(SUCCESS);
     }
 
     //if handler called with SIGVTALRM signal when threads quantom time was finished
-    Thread *currentThread = threadList[readyQueue.front()];
+    Thread *currentThread = threadList[(*readyQueue).front()];
 
     //saves the registers or jumping from the future
     int ret_val = sigsetjmp(currentThread->env, 1);
@@ -138,28 +139,13 @@ void timer_handler(int sig) {
     if (currentThread->getState() == RUNNING) {
         currentThread->setState(READY);
         // push the finished thread to the be the last in the queue
-        readyQueue.push(readyQueue.front());
-        readyQueue.pop();
+        (*readyQueue).push((*readyQueue).front());
+        (*readyQueue).pop();
     }
-    while (threadList[readyQueue.front()]->getState() == BLOCK || threadList[readyQueue.front()]->getState() == DEAD) {
-        if (threadList[readyQueue.front()]->getState() == BLOCK) {
-            //takes the thread out from queue and into the block list
-            currentThread = threadList[readyQueue.front()];
-            currentThread->setInQueue(NOT_IN_READY_QUEUE);
-            blocked.insert(readyQueue.front());
-            readyQueue.pop();
-        } else {
-            if (!threadList[readyQueue.front()]->getKillerFlag()) {
-                threadList[readyQueue.front()]->setKillerFlag();
-                readyQueue.push(readyQueue.front());
-                readyQueue.pop();
-            } else {
-                killTid(readyQueue.front());
-            }
-        }
-
+    else if (currentThread->getState() == BLOCK || currentThread->getState() == DEAD) {
+        (*readyQueue).pop();
     }
-    currentThread = threadList[readyQueue.front()];
+    currentThread = threadList[(*readyQueue).front()];
     currentThread->setState(RUNNING);
     currentThread->incCounter();
     totalQuantomCounter++;
@@ -169,8 +155,8 @@ void timer_handler(int sig) {
 
 
 int uthread_init(int *quantum_usecs, int size) {
+    readyQueue = new QueueWrapper();
     _quantum_usecs = quantum_usecs;
-    _size = size;
     if (size <= 0){
         std::cerr << "thread library error: invalid size of array\n";
         return FAILURE;
@@ -181,6 +167,7 @@ int uthread_init(int *quantum_usecs, int size) {
             return FAILURE;
         }
     }
+
     //making the timer_handler to intiate when there is signal from the timer
     sa.sa_handler = &timer_handler;
     if (sigaction(SIGVTALRM, &sa, NULL) < 0) {
@@ -200,7 +187,7 @@ int uthread_init(int *quantum_usecs, int size) {
     mainThread->incCounter();
 
     // insert main thread to queue
-    readyQueue.push(mainThereadID);
+    (*readyQueue).push(mainThereadID);
     threadList[mainThereadID] = mainThread;
     all.insert(MAIN_THREAD_ID);
 
@@ -217,8 +204,6 @@ int uthread_spawn(void (*f)(), int priority) {
     int newThereadID = generateID();
     if (newThereadID == FAILURE) {
         std::cerr << "thread library error: you reached the max number of threads" << std::endl;
-        fflush(stdout);
-        sigprocmask(SIG_UNBLOCK, &set, nullptr);
         return FAILURE;
     }
 
@@ -228,7 +213,7 @@ int uthread_spawn(void (*f)(), int priority) {
     // set the new thread to ready mode and insert to ready qeueu
     newThread->setState(READY);
     all.insert(newThereadID);
-    readyQueue.push(newThereadID);
+    (*readyQueue).push(newThereadID);
     threadList[newThereadID] = newThread;
 
 
@@ -240,7 +225,7 @@ int uthread_block(int tid) {
     sigprocmask(SIG_BLOCK, &set, nullptr);
 
     // if tid is not exist
-    if (!threadList.count(tid) || threadList[tid]->getState() == DEAD) {
+    if (!threadList.count(tid) ) {
         sigprocmask(SIG_UNBLOCK, &set, nullptr);
         return noTid();
     }
@@ -255,12 +240,15 @@ int uthread_block(int tid) {
     // if thread asks to block itself
     if (threadList[tid]->getState() == RUNNING) {
         threadList[tid]->setState(BLOCK);
+        blocked.insert(tid);
         //saves the registers or jumping from the future
         sigprocmask(SIG_UNBLOCK, &set, nullptr);
         timer_handler(50);
         return SUCCESS;
+
     } else if (!blocked.count(tid)) {
         threadList[tid]->setState(BLOCK);
+        removeThreadFromReadyQueue(tid);
         blocked.insert(tid);
     }
 
@@ -271,23 +259,16 @@ int uthread_block(int tid) {
 int uthread_resume(int tid) {
     sigprocmask(SIG_BLOCK, &set, nullptr);
     // if tid is not exist
-    if (!threadList.count(tid) || threadList[tid]->getState() == DEAD) {
+    if (!threadList.count(tid)) {
         return noTid();
     }
 
     // if the thread in the block list
     if (blocked.count(tid)) {
-        // if the thread in the block list and already moved out from ready queue
-        if (threadList[tid]->isInQueue() == NOT_IN_READY_QUEUE) {
-            removeFromList(tid, &blocked);
-            threadList[tid]->setInQueue(IN_READY_QUEUE);
-        }
-            // if the thread still in ready queue
-        else {
-            removeThreadFromReadyQueue(tid);
-        }
+        removeFromList(tid, &blocked);
+        threadList[tid]->setInQueue(IN_READY_QUEUE);
         threadList[tid]->setState(READY);
-        readyQueue.push(tid);
+        (*readyQueue).push(tid);
     }
     sigprocmask(SIG_UNBLOCK, &set, nullptr);
     return SUCCESS;
@@ -305,20 +286,23 @@ int uthread_terminate(int tid) {
     // if tid is main thread
     if (tid == 0) {
         for (int x : all) {
-            if (x != readyQueue.front()) {
+            if (x != (*readyQueue).front()) {
                 killTid(x);
             }
         }
-        threadList[readyQueue.front()]->setState(FINNISHED);
+        threadList[(*readyQueue).front()]->setState(FINNISHED);
         timer_handler(FINNISHED);
-    } else if (threadList[tid]->getState() == RUNNING) {
+
+    }
+    if (threadList[tid]->getState() == RUNNING) {
         // mark this thread finished and put it last
         threadList[tid]->setState(DEAD);
         killMe = tid;
         hasToKill=true;
         sigprocmask(SIG_UNBLOCK, &set, nullptr);
         timer_handler(6);
-    } else {
+    }
+    else {
         //the running thread x terminates thread y
         killTid(tid);
     }
@@ -332,7 +316,7 @@ int uthread_change_priority(int tid, int priority) {
     sigprocmask(SIG_BLOCK, &set, nullptr);
 
     // if tid is not exist
-    if (!threadList.count(tid) || threadList[tid]->getState() == DEAD) {
+    if (!threadList.count(tid)) {
         sigprocmask(SIG_UNBLOCK, &set, nullptr);
         return noTid();
     }
@@ -343,7 +327,7 @@ int uthread_change_priority(int tid, int priority) {
 
 
 int uthread_get_tid() {
-    return readyQueue.front();
+    return (*readyQueue).front();
 }
 
 int uthread_get_quantums(int tid) {
