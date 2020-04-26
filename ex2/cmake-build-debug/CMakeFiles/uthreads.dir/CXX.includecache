@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/mercydude/University/semester05/os/projects/ex2/Thread.cpp
+signal.h
+-
+iostream
+-
+Thread.h
+/home/mercydude/University/semester05/os/projects/ex2/Thread.h
+
+/home/mercydude/University/semester05/os/projects/ex2/Thread.h
+setjmp.h
+-
+uthreads.h
+/home/mercydude/University/semester05/os/projects/ex2/uthreads.h
+
+/home/mercydude/University/semester05/os/projects/ex2/uthreads.cpp
+vector
+-
+iostream
+-
+map
+-
+queue
+-
+set
+-
+sys/time.h
+-
+signal.h
+-
+Thread.h
+/home/mercydude/University/semester05/os/projects/ex2/Thread.h
+
+/home/mercydude/University/semester05/os/projects/ex2/uthreads.h
+

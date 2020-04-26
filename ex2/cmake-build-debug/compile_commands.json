@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/mercydude/University/semester05/os/projects/ex2/cmake-build-debug/tests",
+  "command": "/usr/bin/c++   -I/home/mercydude/University/semester05/os/projects/ex2/tests/.. -isystem /home/mercydude/University/semester05/os/projects/ex2/cmake-build-debug/tests/googletest-src/googletest/include -isystem /home/mercydude/University/semester05/os/projects/ex2/cmake-build-debug/tests/googletest-src/googletest  -g   -Wall -Wextra -std=gnu++11 -o CMakeFiles/theTests.dir/tests_to_be_ran_separately.cpp.o -c /home/mercydude/University/semester05/os/projects/ex2/tests/tests_to_be_ran_separately.cpp",
+  "file": "/home/mercydude/University/semester05/os/projects/ex2/tests/tests_to_be_ran_separately.cpp"
+}
+]
