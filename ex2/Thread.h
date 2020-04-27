@@ -12,7 +12,7 @@
 class Thread
 {
 private:
-
+    sigset_t set;
     int _tid,_priority;
     char* _stackMemoryAlocPointer;
     bool _inReadyQueu;

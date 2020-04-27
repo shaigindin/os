@@ -80,7 +80,6 @@ int Thread::getPriority() {
 
 void Thread::setState(int state) {
     _state = state;
-
 }
 
 bool Thread::isInQueue() {
