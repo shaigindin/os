@@ -7,10 +7,8 @@
  */
 
 #define MAX_THREAD_NUM 100 /* maximal number of threads */
-#define STACK_SIZE 32384 /* stack size per thread (in bytes) 4096 */
-#define READY 1
-#define RUNNING 2
-#define BLOCK 3
+#define STACK_SIZE 16384 /* stack size per thread (in bytes) 4096 */
+
 
 /* External interface */
 

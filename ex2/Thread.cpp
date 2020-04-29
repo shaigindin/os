@@ -8,6 +8,10 @@
 typedef unsigned long address_t;
 #define JB_SP 6
 #define JB_PC 7
+#define READY 1
+#define RUNNING 2
+#define BLOCK 3
+
 
 /* A translation is required when using an address of a variable.
    Use this as a black box in your code. */
@@ -76,7 +80,6 @@ int Thread::getPriority() {
 
 void Thread::setState(int state) {
     _state = state;
-
 }
 
 bool Thread::isInQueue() {
