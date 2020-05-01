@@ -293,7 +293,12 @@ int uthread_init(int *quantum_usecs, int size) {
 */
 int uthread_spawn(void (*f)(), int priority) {
     sigprocmask(SIG_BLOCK, &set, nullptr);
-
+    
+    if (f == nullptr){
+        std::cerr << "thread library error: The function you're trying to run is unavailable" << std::endl;
+        return FAILURE;
+    }
+    
     //creating the new thread
     int newThereadID = generateID();
 
