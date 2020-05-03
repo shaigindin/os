@@ -2,15 +2,15 @@ CC=g++
 CXX=g++
 RANLIB=ranlib
 
-LIBSRC=Thread.cpp uthreads.cpp
+LIBSRC=Thread.cpp uthreads.cpp QueueWrapper.cpp
 LIBOBJ=$(LIBSRC:.cpp=.o)
 
 INCS=-I.
 CFLAGS = -Wall -std=c++11 -g $(INCS)
 CXXFLAGS = -Wall -std=c++11 -g $(INCS)
 
-UTHREADSLIB = libuthreads.a
-TARGETS = $(UTHREADSLIB)
+OSMLIB = libuthreads.a
+TARGETS = $(OSMLIB)
 
 TAR=tar
 TARFLAGS=-cvf
@@ -19,12 +19,12 @@ TARSRCS=$(LIBSRC) Makefile README
 
 all: $(TARGETS)
 
-$(TARGETS): $(LIBOBJ)
+$(TARGETS): $(LIBOBJ) 	
 	$(AR) $(ARFLAGS) $@ $^
 	$(RANLIB) $@
 
 clean:
-	$(RM) $(TARGETS) $(UTHREADSLIB) $(OBJ) $(LIBOBJ) *~ *core
+	$(RM) $(TARGETS) $(OSMLIB) $(OBJ) $(LIBOBJ) *~ *core
 
 depend:
 	makedepend -- $(CFLAGS) -- $(SRC) $(LIBSRC)
