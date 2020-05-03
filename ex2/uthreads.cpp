@@ -33,7 +33,7 @@ bool hasToKill;
 int lastThreadNumber;
 
 int availableID[MAX_THREAD_NUM]{0};
-int *_quantum_usecs;
+std::vector<int> _quantum_usecs;
 struct sigaction sa;
 struct itimerval timer;
 sigset_t set;
@@ -241,8 +241,10 @@ int uthread_init(int *quantum_usecs, int size) {
     {
         return FAILURE;
     }
-    _quantum_usecs = quantum_usecs;
-
+    for (int i=0; i < size; ++i)
+    {
+        _quantum_usecs.push_back(quantum_usecs[i]);
+    }
 
     //after researching, it was recommended to allocate memory in the heap for Queue containers and wrap
     // them with class

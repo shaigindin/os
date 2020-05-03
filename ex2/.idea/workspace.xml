@@ -17,15 +17,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d0e39fa2-4417-4084-805a-9ddbf0787c16" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ex1/project01/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ex1/project01/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ex1/project01/cmake-build-debug/CMakeFiles/project01.dir/osm.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/../ex1/project01/cmake-build-debug/CMakeFiles/project01.dir/osm.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ex1/project01/cmake-build-debug/project01" beforeDir="false" afterPath="$PROJECT_DIR$/../ex1/project01/cmake-build-debug/project01" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ex1/project01/ex1.tar" beforeDir="false" afterPath="$PROJECT_DIR$/../ex1/project01/ex1.tar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ex1/project01/osm.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../ex1/project01/osm.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/lib/libgtest_maind.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/lib/libgtest_maind.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/lib/libgtestd.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/lib/libgtestd.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/libuthreads.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/libuthreads.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/tests/CMakeFiles/theTests.dir/tests_to_be_ran_separately.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/tests/CMakeFiles/theTests.dir/tests_to_be_ran_separately.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/tests/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/tests/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/tests/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/tests/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/tests/theTests" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/tests/theTests" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests" beforeDir="false" afterPath="$PROJECT_DIR$/tests" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/CMakeLists.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/tests_to_be_ran_separately.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tests_to_be_ran_separately.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uthreads.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/uthreads.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uthreads.h" beforeDir="false" afterPath="$PROJECT_DIR$/uthreads.h" afterDir="false" />
     </list>
+    <ignored path="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,11 +53,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/tests_to_be_ran_separately.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="478">
-              <caret line="503" column="28" selection-start-line="503" selection-start-column="28" selection-end-line="503" selection-end-column="28" />
+            <state relative-caret-position="6270">
+              <caret line="345" column="1" selection-start-line="345" selection-start-column="1" selection-end-line="345" selection-end-column="1" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -62,8 +68,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/uthreads.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="118" column="22" selection-start-line="118" selection-start-column="22" selection-end-line="118" selection-end-column="22" />
+            <state relative-caret-position="3696">
+              <caret line="270" selection-start-line="270" selection-end-line="270" />
+              <folding>
+                <element signature="e#48#65#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/CMakeLists.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-157">
+              <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -71,17 +89,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Thread.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1100">
-              <caret line="68" column="12" selection-start-line="68" selection-start-column="12" selection-end-line="68" selection-end-column="12" />
+            <state relative-caret-position="572">
+              <caret line="44" column="1" selection-start-line="44" selection-start-column="1" selection-end-line="44" selection-end-column="1" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/uthreads.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+            <state relative-caret-position="110">
+              <caret line="5" column="49" selection-start-line="5" selection-start-column="49" selection-end-line="5" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -98,6 +116,7 @@
       <find>err</find>
       <find>HERE</find>
       <find>push</find>
+      <find>100000</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
@@ -118,8 +137,8 @@
         <option value="$PROJECT_DIR$/demo_jmp.c" />
         <option value="$PROJECT_DIR$/demo_itimer.c" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/uthreads.cpp" />
         <option value="$PROJECT_DIR$/uthreads.h" />
+        <option value="$PROJECT_DIR$/uthreads.cpp" />
         <option value="$PROJECT_DIR$/tests/tests_to_be_ran_separately.cpp" />
       </list>
     </option>
@@ -146,7 +165,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -163,9 +181,11 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -189,8 +209,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Google Test.Test6.RandomThreadOperations">
-    <configuration name="DISABLED_Test5.TimesAndPriorities" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="threads" TARGET_NAME="theTests" RUN_TARGET_PROJECT_NAME="threads" RUN_TARGET_NAME="theTests" TEST_CLASS="DISABLED_Test5" TEST_METHOD="TimesAndPriorities" TEST_MODE="SUITE_TEST">
+  <component name="RunManager" selected="Google Test.Test3.ThreadExecutionOrder">
+    <configuration name="Test1.BasicFunctionality" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="threads" TARGET_NAME="theTests" RUN_TARGET_PROJECT_NAME="threads" RUN_TARGET_NAME="theTests" TEST_CLASS="Test1" TEST_METHOD="BasicFunctionality" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
         <option name="BeforeTestRunTask" enabled="true" />
@@ -208,13 +228,13 @@
         <option name="BeforeTestRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test4.StressTestAndThreadCreationOrder" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="threads" TARGET_NAME="theTests" RUN_TARGET_PROJECT_NAME="threads" RUN_TARGET_NAME="theTests" TEST_CLASS="Test4" TEST_METHOD="StressTestAndThreadCreationOrder" TEST_MODE="SUITE_TEST">
+    <configuration name="Test4.StressTestAndThreadCreationOrder" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="threads" TARGET_NAME="theTests" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="threads" RUN_TARGET_NAME="theTests" TEST_CLASS="Test4" TEST_METHOD="StressTestAndThreadCreationOrder" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
         <option name="BeforeTestRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test6.RandomThreadOperations" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="threads" TARGET_NAME="theTests" RUN_TARGET_PROJECT_NAME="threads" RUN_TARGET_NAME="theTests" TEST_CLASS="Test6" TEST_METHOD="RandomThreadOperations" TEST_MODE="SUITE_TEST">
+    <configuration name="Test6.RandomThreadOperations" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="threads" TARGET_NAME="theTests" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="threads" RUN_TARGET_NAME="theTests" TEST_CLASS="Test6" TEST_METHOD="RandomThreadOperations" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
         <option name="BeforeTestRunTask" enabled="true" />
@@ -263,19 +283,19 @@
       <item itemvalue="CMake Application.gtest" />
       <item itemvalue="CMake Application.gtest_main" />
       <item itemvalue="CMake Application.theTests" />
+      <item itemvalue="Google Test.Test4.StressTestAndThreadCreationOrder" />
+      <item itemvalue="Google Test.Test6.RandomThreadOperations" />
+      <item itemvalue="Google Test.Test1.BasicFunctionality" />
       <item itemvalue="Google Test.Test2.ThreadSchedulingWithTermination" />
       <item itemvalue="Google Test.Test3.ThreadExecutionOrder" />
-      <item itemvalue="Google Test.Test4.StressTestAndThreadCreationOrder" />
-      <item itemvalue="Google Test.DISABLED_Test5.TimesAndPriorities" />
-      <item itemvalue="Google Test.Test6.RandomThreadOperations" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Google Test.Test6.RandomThreadOperations" />
-        <item itemvalue="Google Test.Test4.StressTestAndThreadCreationOrder" />
-        <item itemvalue="Google Test.DISABLED_Test5.TimesAndPriorities" />
         <item itemvalue="Google Test.Test3.ThreadExecutionOrder" />
         <item itemvalue="Google Test.Test2.ThreadSchedulingWithTermination" />
+        <item itemvalue="Google Test.Test1.BasicFunctionality" />
+        <item itemvalue="Google Test.Test6.RandomThreadOperations" />
+        <item itemvalue="Google Test.Test4.StressTestAndThreadCreationOrder" />
       </list>
     </recent_temporary>
   </component>
@@ -292,25 +312,11 @@
       <workItem from="1587119527475" duration="29385000" />
       <workItem from="1587403641865" duration="196000" />
       <workItem from="1587899142524" duration="7816000" />
+      <workItem from="1588540608583" duration="1618000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Test4_StressTestAndThreadCreationOrder - 2020.04.26 at 15h 56m 40s.xml">
-      <configuration name="Test4.StressTestAndThreadCreationOrder" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="Test6_RandomThreadOperations - 2020.04.26 at 15h 56m 57s.xml">
-      <configuration name="Test6.RandomThreadOperations" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="Test6_RandomThreadOperations - 2020.04.26 at 15h 57m 10s.xml">
-      <configuration name="Test6.RandomThreadOperations" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="Test6_RandomThreadOperations - 2020.04.26 at 15h 57m 21s.xml">
-      <configuration name="Test6.RandomThreadOperations" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="Test6_RandomThreadOperations - 2020.04.26 at 15h 59m 07s.xml">
-      <configuration name="Test6.RandomThreadOperations" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
     <history-entry file="Test6_RandomThreadOperations - 2020.04.26 at 15h 59m 13s.xml">
       <configuration name="Test6.RandomThreadOperations" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
@@ -326,20 +332,36 @@
     <history-entry file="Test6_RandomThreadOperations - 2020.04.26 at 16h 07m 42s.xml">
       <configuration name="Test6.RandomThreadOperations" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
+    <history-entry file="Test1_BasicFunctionality - 2020.05.04 at 00h 25m 42s.xml">
+      <configuration name="Test1.BasicFunctionality" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="Test1_BasicFunctionality - 2020.05.04 at 00h 29m 45s.xml">
+      <configuration name="Test1.BasicFunctionality" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="Test1_BasicFunctionality - 2020.05.04 at 00h 30m 05s.xml">
+      <configuration name="Test1.BasicFunctionality" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="Test2_ThreadSchedulingWithTermination - 2020.05.04 at 00h 30m 22s.xml">
+      <configuration name="Test2.ThreadSchedulingWithTermination" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="Test3_ThreadExecutionOrder - 2020.05.04 at 00h 30m 27s.xml">
+      <configuration name="Test3.ThreadExecutionOrder" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37397000" />
+    <option name="totallyTimeSpent" value="39015000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1920" height="1055" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.20384204" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20384204" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3812095" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.4049676" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3812095" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4049676" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -366,20 +388,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/jona1.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="812">
-          <caret line="84" lean-forward="true" selection-start-line="84" selection-end-line="84" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test1.in.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-225">
-          <caret line="118" column="32" lean-forward="true" selection-start-line="118" selection-start-column="32" selection-end-line="118" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/jona1.cpp" />
+    <entry file="file://$PROJECT_DIR$/tests/test1.in.cpp" />
     <entry file="file://$PROJECT_DIR$/Scheduler.h" />
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
@@ -409,42 +419,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/demo_itimer.c" />
     <entry file="file://$PROJECT_DIR$/demo_singInt_handler.c" />
-    <entry file="file://$PROJECT_DIR$/kerbel_tests/uthreads.h">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kerbel_tests/demo_itimer.c">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kerbel_tests/demo_jmp.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-264" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/kerbel_tests/uthreads.h" />
+    <entry file="file://$PROJECT_DIR$/kerbel_tests/demo_itimer.c" />
+    <entry file="file://$PROJECT_DIR$/kerbel_tests/demo_jmp.c" />
     <entry file="file://$PROJECT_DIR$/tests/CMakeLists.txt.in">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
           <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -462,34 +443,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Thread.cpp">
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1100">
-          <caret line="68" column="12" selection-start-line="68" selection-start-column="12" selection-end-line="68" selection-end-column="12" />
+        <state relative-caret-position="220">
+          <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/uthreads.cpp">
+    <entry file="file:///usr/include/c++/7/bits/stl_vector.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="118" column="22" selection-start-line="118" selection-start-column="22" selection-end-line="118" selection-end-column="22" />
+        <state relative-caret-position="299">
+          <caret line="258" column="6" selection-start-line="258" selection-start-column="6" selection-end-line="258" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/uthreads.h">
+    <entry file="file://$PROJECT_DIR$/tests/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+        <state relative-caret-position="-157">
+          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/tests_to_be_ran_separately.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="478">
-          <caret line="503" column="28" selection-start-line="503" selection-start-column="28" selection-end-line="503" selection-end-column="28" />
+        <state relative-caret-position="6270">
+          <caret line="345" column="1" selection-start-line="345" selection-start-column="1" selection-end-line="345" selection-end-column="1" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uthreads.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3696">
+          <caret line="270" selection-start-line="270" selection-end-line="270" />
+          <folding>
+            <element signature="e#48#65#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Thread.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="572">
+          <caret line="44" column="1" selection-start-line="44" selection-start-column="1" selection-end-line="44" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uthreads.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="5" column="49" selection-start-line="5" selection-start-column="49" selection-end-line="5" selection-end-column="49" />
         </state>
       </provider>
     </entry>

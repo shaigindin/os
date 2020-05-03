@@ -1,0 +1,50 @@
+shai.gindin, yoav
+shai gindin (301315537), yoav levy (314963257)
+EX: 2
+
+FILES:
+    Thread.h -- Header file of the class representing the thread.
+    Thread.cpp -- The translation unit of the Thread class.
+    uthreads.cpp -- The translation unit of the uthreads.h file, which implements all the
+                    user thread functionallities, as requested in the exercise pdf.
+    makefile - the makefile which generates libuthreads.a 
+
+REMARKS:
+No special remarks this time.
+
+ANSWERS:
+    1. For example Let's say there is an application that usually is doing calculations 
+       like multiplying matrices, but also there is a queue that can add more matrices to work on.
+       It might be easier (or cleaner) to implement with two threads, one that will
+       calculate the matrix multiplications, and the other a "listener" will check the queue 
+       every now and then, and re orders the matrices.
+       The advantages of creating such threads are a more cleaner and easier to read implementation
+       also, the calculations could be quicker if the listener will also reorder the matrices
+       in such way that the multiplication will take less time to calculate.
+       One thing to notice is that user level threads are faster when dealing with programs that
+       doesn't use syscalls, and does use calculations,
+       therefore user level threads are a reasnable choise. 
+    2. One of the advantages of creating a new process for each tab is that if either one of 
+       these processes crashes, it will just crash that one, in oppose to creating a new
+       kernel-level thread for each tab, where when one thread crashes it might crash the whole
+       process.
+       The disadvantage is the huge overhead comes with it. by creating a new process for each 
+       tab, we copy the entire relevant code section, and allocate a new space for the stack.
+       note that each process will take a segnificant amount of ram memory, and also, by not
+       using kernel-level threads we lose the speed that kernel-level threads will provide. 
+    3. In the beginning we opened the application "Shotwell" this opened a new process,
+       with some  PID, after that we wrote the following command "kill pid",
+       and every key-stroke triggered a hardware interrupt which in turns made the cpu to execute
+       the relevant code from the os kernel to handle this interuppt, and the os will send signal 
+       to the shell application to wake up and handle the received key-strokes.
+       now after pressing the 'ENTER' key, the same operation occured.
+       And now the shell proccess will trigger a syscall (the kill syscall) and this in turns 
+       will make the OS to send a signal (SIGTERM signal) to the relevant process, which is 
+       the "Shotwell" process.
+       SIGTERM is a signal that "Shotwell" might catch and handel or by default the os will
+       handle it for him. 
+    4. The real time measures the actual clock time, but the virtual time measures only the
+       time a process spent executing in the CPU (running).
+       In example, if we will want to count the time of the execution of the whole program 
+       I would use the REAL time to measure it, but on the other hand if we want to see how much 
+       time does the process spent running on the cpu I would use the virtual time to measure it.

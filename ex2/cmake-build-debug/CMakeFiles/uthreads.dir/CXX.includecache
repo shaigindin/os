@@ -6,13 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/home/mercydude/University/semester05/os/projects/ex2/Thread.cpp
-signal.h
+/home/mercydude/University/semester05/os/projects/ex2/QueueWrapper.h
+queue
 -
-iostream
--
-Thread.h
-/home/mercydude/University/semester05/os/projects/ex2/Thread.h
 
 /home/mercydude/University/semester05/os/projects/ex2/Thread.h
 setjmp.h
@@ -27,8 +23,6 @@ iostream
 -
 map
 -
-queue
--
 set
 -
 sys/time.h
@@ -37,6 +31,8 @@ signal.h
 -
 Thread.h
 /home/mercydude/University/semester05/os/projects/ex2/Thread.h
+QueueWrapper.h
+/home/mercydude/University/semester05/os/projects/ex2/QueueWrapper.h
 
 /home/mercydude/University/semester05/os/projects/ex2/uthreads.h
 
