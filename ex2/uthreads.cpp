@@ -47,7 +47,6 @@ QueueWrapper* readyQueue;
  * @param tid
  */
 void removeThreadFromReadyQueue(int tid) {
-    sigprocmask(SIG_BLOCK, &set, nullptr);
     QueueWrapper tempQueue;
     while (!(*readyQueue).empty()) {
         if ((*readyQueue).front() != tid) {
@@ -64,7 +63,6 @@ void removeThreadFromReadyQueue(int tid) {
  * @param list1
  */
 void removeFromList(int tid, std::set<int> *list1) {
-    sigprocmask(SIG_BLOCK, &set, nullptr);
     std::set<int>::iterator it1{};
     for (auto x = list1->begin(); x != list1->end(); ++x) {
         if (*x == tid) {
@@ -80,7 +78,6 @@ void removeFromList(int tid, std::set<int> *list1) {
  * @return
  */
 int killTid(int tid) {
-    sigprocmask(SIG_BLOCK, &set, nullptr);
     // if thread in block list
     if (blocked.count(tid)) {
         removeFromList(tid, &blocked);
@@ -101,7 +98,6 @@ int killTid(int tid) {
  */
 int noTid() {
     std::cerr << "thread library error: there is no thread with given id" << std::endl;
-    sigprocmask(SIG_UNBLOCK, &set, nullptr);
     return FAILURE;
 }
 
@@ -110,7 +106,6 @@ int noTid() {
  * @return
  */
 int generateID() {
-    sigprocmask(SIG_BLOCK, &set, nullptr);
     for (int i = 0; i < MAX_THREAD_NUM; i++) {
         if (availableID[i] == AVAILABLE) {
             availableID[i] = OCCUPIED;
@@ -131,7 +126,7 @@ int setTimerWithPriority(int priority) {
     timer.it_interval.tv_sec = priority / MICROSECONDS_TO_SECONDS;
     timer.it_interval.tv_usec = priority % MICROSECONDS_TO_SECONDS;
     if (setitimer(ITIMER_VIRTUAL, &timer, nullptr)) {
-        std::cerr << "system error: system call setitimer failed" << std::endl;
+        std::cerr << "system error: system call setitimer failed1" << std::endl;
         exit(EXIT_FAILURE);
     }
     return SUCCESS;
@@ -143,7 +138,6 @@ int setTimerWithPriority(int priority) {
  */
 void terminateAll(int remianTid)
 {
-    sigprocmask(SIG_BLOCK, &set, nullptr);
     for (auto const& x : threadList)
     {
         if (x.first != remianTid)
@@ -158,8 +152,6 @@ void terminateAll(int remianTid)
  * @param sig
  */
 void timer_handler(int sig) {
-    //we knows it autmaticly blocks SIGVTIME but we read in STACKOVERFLOW that there are edge cases
-    sigprocmask(SIG_BLOCK, &set, nullptr);
 
     //because when compiling with flag Werror it unused parameter and sa.handler must get void     (*sa_handler)(int);
     sig++;
@@ -173,10 +165,8 @@ void timer_handler(int sig) {
         if (hasToKill)
         {
             killTid(killMe);
-            sigprocmask(SIG_BLOCK, &set, nullptr);
             hasToKill = false;
         }
-        sigprocmask(SIG_UNBLOCK, &set, nullptr);
         return;
     }
 
@@ -241,6 +231,7 @@ int uthread_init(int *quantum_usecs, int size) {
     {
         return FAILURE;
     }
+
     for (int i=0; i < size; ++i)
     {
         _quantum_usecs.push_back(quantum_usecs[i]);
@@ -251,8 +242,17 @@ int uthread_init(int *quantum_usecs, int size) {
     readyQueue = new QueueWrapper();
 
     //initiate the set of alarams with SIGVTALARM
-    sigemptyset(&set);
-    sigaddset(&set, SIGVTALRM);
+    if (sigemptyset(&set) != SUCCESS)
+    {
+        std::cerr << "system error: system call sigemptyset failed." << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    if (sigaddset(&set, SIGVTALRM) != SUCCESS)
+    {
+        std::cerr << "system error: system call sigaddset failed." << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
 
     //making the timer_handler to intiate when there is signal from the timer
     sa.sa_handler = &timer_handler;
@@ -294,8 +294,12 @@ int uthread_init(int *quantum_usecs, int size) {
  * On failure, return -1.
 */
 int uthread_spawn(void (*f)(), int priority) {
-    sigprocmask(SIG_BLOCK, &set, nullptr);
-    
+
+    if (sigprocmask(SIG_BLOCK, &set, nullptr) != SUCCESS) {
+        std::cerr << "system error: faild to block alram" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
     if (f == nullptr){
         std::cerr << "thread library error: The function you're trying to run is unavailable" << std::endl;
         return FAILURE;
@@ -320,7 +324,10 @@ int uthread_spawn(void (*f)(), int priority) {
     threadList[newThereadID] = newThread;
 
 
-    sigprocmask(SIG_UNBLOCK, &set, nullptr);
+    if (sigprocmask(SIG_UNBLOCK, &set, nullptr) != SUCCESS) {
+        std::cerr << "system error: faild to block alram" << std::endl;
+        exit(EXIT_FAILURE);
+    }
     return newThereadID;
 }
 
@@ -334,7 +341,10 @@ int uthread_spawn(void (*f)(), int priority) {
  * Return value: On success, return 0. On failure, return -1.
 */
 int uthread_block(int tid) {
-    sigprocmask(SIG_BLOCK, &set, nullptr);
+    if (sigprocmask(SIG_BLOCK, &set, nullptr) != SUCCESS) {
+        std::cerr << "system error: faild to block alram" << std::endl;
+        exit(EXIT_FAILURE);
+    }
 
     // if tid is not exist
     if (!threadList.count(tid) ) {
@@ -361,11 +371,13 @@ int uthread_block(int tid) {
         threadList[tid]->setState(BLOCK);
         threadList[tid]->setInQueue(NOT_IN_READY_QUEUE);
         removeThreadFromReadyQueue(tid);
-        sigprocmask(SIG_BLOCK, &set, nullptr);
         blocked.insert(tid);
     }
 
-    sigprocmask(SIG_UNBLOCK, &set, nullptr);
+    if (sigprocmask(SIG_UNBLOCK, &set, nullptr) != SUCCESS) {
+        std::cerr << "system error: faild to block alram" << std::endl;
+        exit(EXIT_FAILURE);
+    }
     return SUCCESS;
 }
 
@@ -377,7 +389,11 @@ int uthread_block(int tid) {
  * Return value: On success, return 0. On failure, return -1.
 */
 int uthread_resume(int tid) {
-    sigprocmask(SIG_BLOCK, &set, nullptr);
+    if (sigprocmask(SIG_BLOCK, &set, nullptr) != SUCCESS) {
+        std::cerr << "system error: faild to block alram" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
     // if tid is not exist
     if (!threadList.count(tid)) {
         return noTid();
@@ -391,7 +407,10 @@ int uthread_resume(int tid) {
         (*readyQueue).push(tid);
     }
 
-    sigprocmask(SIG_UNBLOCK, &set, nullptr);
+    if (sigprocmask(SIG_UNBLOCK, &set, nullptr) != SUCCESS) {
+        std::cerr << "system error: faild to block alram" << std::endl;
+        exit(EXIT_FAILURE);
+    }
     return SUCCESS;
 }
 
@@ -421,8 +440,10 @@ void terminateProgram()
  * thread is terminated, the function does not return.
 */
 int uthread_terminate(int tid) {
-    sigprocmask(SIG_BLOCK, &set, nullptr);
-
+    if (sigprocmask(SIG_BLOCK, &set, nullptr) != SUCCESS) {
+        std::cerr << "system error: faild to block alram" << std::endl;
+        exit(EXIT_FAILURE);
+    }
     // if tid is not exist
     if (!threadList.count(tid) || threadList[tid]->getState() == DEAD) {
         return noTid();
@@ -445,10 +466,12 @@ int uthread_terminate(int tid) {
     else {
         //the running thread x terminates thread y
         killTid(tid);
-        sigprocmask(SIG_BLOCK, &set, nullptr);
     }
 
-    sigprocmask(SIG_UNBLOCK, &set, nullptr);
+    if (sigprocmask(SIG_UNBLOCK, &set, nullptr) != SUCCESS) {
+        std::cerr << "system error: faild to block alram" << std::endl;
+        exit(EXIT_FAILURE);
+    }
     return SUCCESS;
 }
 
@@ -459,7 +482,10 @@ int uthread_terminate(int tid) {
  * Return value: On success, return 0. On failure, return -1.
 */
 int uthread_change_priority(int tid, int priority) {
-    sigprocmask(SIG_BLOCK, &set, nullptr);
+    if (sigprocmask(SIG_BLOCK, &set, nullptr) != SUCCESS) {
+        std::cerr << "system error: faild to block alram" << std::endl;
+        exit(EXIT_FAILURE);
+    }
 
     // if tid is not exist
     if (!threadList.count(tid)) {
@@ -467,8 +493,11 @@ int uthread_change_priority(int tid, int priority) {
         return noTid();
     }
     threadList[tid]->setPriority(_quantum_usecs[priority]);
-    sigprocmask(SIG_UNBLOCK, &set, nullptr);
-    return SUCCESS;
+
+    if (sigprocmask(SIG_UNBLOCK, &set, nullptr) != SUCCESS) {
+        std::cerr << "system error: faild to block alram" << std::endl;
+        exit(EXIT_FAILURE);
+    }    return SUCCESS;
 }
 
 /**
@@ -476,10 +505,16 @@ int uthread_change_priority(int tid, int priority) {
  * Return value: The ID of the calling thread.
 */
 int uthread_get_tid() {
-    sigprocmask(SIG_BLOCK, &set, nullptr);
+    if (sigprocmask(SIG_BLOCK, &set, nullptr) != SUCCESS) {
+        std::cerr << "system error: faild to block alram" << std::endl;
+        exit(EXIT_FAILURE);
+    }
     int i = (*readyQueue).front();
-    sigprocmask(SIG_UNBLOCK, &set, nullptr);
-    return i;
+
+    if (sigprocmask(SIG_UNBLOCK, &set, nullptr) != SUCCESS) {
+        std::cerr << "system error: faild to block alram" << std::endl;
+        exit(EXIT_FAILURE);
+    }    return i;
 }
 
 /**
@@ -493,14 +528,21 @@ int uthread_get_tid() {
  * 			     On failure, return -1.
 */
 int uthread_get_quantums(int tid) {
-    sigprocmask(SIG_BLOCK, &set, nullptr);
+    if (sigprocmask(SIG_BLOCK, &set, nullptr) != SUCCESS) {
+        std::cerr << "system error: faild to block alram" << std::endl;
+        exit(EXIT_FAILURE);
+    }
 
     // if tid is not exist
     if (!threadList.count(tid) || threadList[tid]->getState()== DEAD) {
         sigprocmask(SIG_UNBLOCK, &set, nullptr);
         return noTid();
     }
-    sigprocmask(SIG_UNBLOCK, &set, nullptr);
+    if (sigprocmask(SIG_UNBLOCK, &set, nullptr) != SUCCESS) {
+        std::cerr << "system error: faild to block alram" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
     return threadList[tid]->getQuantomCounter();
 }
 
