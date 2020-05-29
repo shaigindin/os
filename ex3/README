@@ -1,0 +1,38 @@
+shai.gindin, yoav
+shai gindin (301315537), yoav levy (314963257)
+EX: 3
+
+FILES:
+	Barrier.cpp - Barrier source file. 
+	Barrier.h - Barrier header file.
+	MapReduceFramework.cpp - The Map Reduce Framework.
+	fileWordCounter_comparison.png - Runtime graph.
+	Makefile - The makefile, which makes the project.
+	README - README file.
+
+REMARKS:
+No special remarks this time.
+
+ANSWERS:
+
+Evaluation - FileWordCounter:
+
+	CPU(s): 16
+	Model name: Intel(R) Xeon(R) CPU E5-2643 0 @ 3.30GHz
+	Architecture: x86_64
+Analysis of results:
+	As we can see the higher the threads we use the better the runtimes are.
+	But, we reached a peak of thread number where increasing the amount of threads did not
+	improve the results.
+	
+Theoretical Questions:
+
+	1. Due to the fact that there is no memory access,
+           the optimal number of kernel level threads for the function foo will the number of the cores.
+           Adding more threads reduces the frequency of the cpu leading to lower utilization.
+
+	2. n! squared, since the order of the first n prints is non deterministic, as is the order of the
+ 	   second n threads. However, we know that the children of threads reach the print before the 
+           parent threads reach the print. This due to the fact that the children threads don't have to
+ 	   wait for the barrier in order to print, while the parents do.
+

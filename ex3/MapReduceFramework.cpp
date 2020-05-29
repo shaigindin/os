@@ -15,6 +15,7 @@
  * a struct used as a context for each created thread, to obtain various data.
  */
 struct mapThreadContext {
+    std::atomic<unsigned int>* atomicCounter3{};
     bool* mapping{};
     bool* shuffeling{};
     bool* finished{};
@@ -47,6 +48,7 @@ struct Bundle {
     std::vector<K2*>* uniqe{};
     pthread_t* threads{};
     mapThreadContext* contexts{};
+    std::atomic<unsigned int>* atomicCounter3{};
     std::atomic<unsigned int>* atomicCounter{};
     std::atomic<unsigned int>* atomicCounter2{};
     std::atomic<unsigned int>* atomicCounterForFinishReadFromINputVector{};
@@ -81,7 +83,7 @@ void unlockMutexWrapper(pthread_mutex_t* lock)
 
 void mapPhase(mapThreadContext *context)
 {
-    unsigned int currentIndex = (*(context->atomicCounter))++;;
+    unsigned int currentIndex = (*(context->atomicCounter))++;
     while (currentIndex < context->inputVector->size()) {
         context->client->map((*(context->inputVector))[currentIndex].first,
                              (*(context->inputVector))[currentIndex].second,
@@ -168,8 +170,6 @@ void sortPhase(mapThreadContext *context)
     //finish shuffle
     *context->shuffeling = true;
 
-    //intialize atomic counter for counting thread which finished reduce
-    *context->atomicCounter = 0;
 }
 
 void* threadFunction(void* arg) {
@@ -197,7 +197,7 @@ void* threadFunction(void* arg) {
     //all threads do reduce
     reducePhase(context);
 
-    unsigned int finishedAll = (*(context->atomicCounter))++;;
+    unsigned int finishedAll = (*(context->atomicCounter3))++;
     if (finishedAll == context->totalThreadNum - 1)
     {
         *context->finished = true;
@@ -214,6 +214,7 @@ void initialize(struct Bundle* b, int multiThreadLevel)
     b->contexts = new mapThreadContext[multiThreadLevel];
     b->atomicCounter= new std::atomic<unsigned int>(0);
     b->atomicCounter2 = new std::atomic<unsigned int>(0);
+    b->atomicCounter3 = new std::atomic<unsigned int>(0);
     b->barrier = new Barrier(multiThreadLevel);
     b->mutexArray = new pthread_mutex_t[multiThreadLevel];
     b->atomicCounterForFinishReadFromINputVector = new std::atomic<unsigned int>(0);
@@ -228,7 +229,6 @@ void initialize(struct Bundle* b, int multiThreadLevel)
     *b->mapping = false;
     *b->shuffeling = false;
     *b->finished = false;
-
 
     //initiate mutex locks
     for (int i=0; i < multiThreadLevel; i++)
@@ -246,7 +246,7 @@ void createThreads(struct Bundle* b,const MapReduceClient& client,
     //creating a context for each created thread.
     for (int i = 0; i < multiThreadLevel - 1; ++i) {
         b->mapVectors[i] = new std::vector<IntermediatePair>();
-        b->contexts[i] = {b->mapping, b->shuffeling, b->finished, b->mapFinal, b->uniqe,b->atomicCounter,
+        b->contexts[i] = {b->atomicCounter3, b->mapping, b->shuffeling, b->finished, b->mapFinal, b->uniqe,b->atomicCounter,
                           b->atomicCounter2, b->atomicCounterForFinishReadFromINputVector,
                           b->intermediatePairsProduced ,b->intermediatePairsInMap,
                           &client,
@@ -254,9 +254,10 @@ void createThreads(struct Bundle* b,const MapReduceClient& client,
                           b->mapVectors[i], b->barrier, b->mutexArray, b->read, b->write};
     }
     //creates the special thread shuffle context
-    b->contexts[multiThreadLevel -1] = {b->mapping, b->shuffeling, b->finished, b->mapFinal,b->uniqe,b->atomicCounter,b->atomicCounter2,
+    b->contexts[multiThreadLevel -1] = {b->atomicCounter3, b->mapping, b->shuffeling, b->finished,
+                                        b->mapFinal,b->uniqe,b->atomicCounter,b->atomicCounter2,
                                         b->atomicCounterForFinishReadFromINputVector,
-                                         b->intermediatePairsProduced ,b->intermediatePairsInMap,
+                                        b->intermediatePairsProduced ,b->intermediatePairsInMap,
                                         &client,
                                         &inputVec, &outputVec, multiThreadLevel, multiThreadLevel -1,
                                         b->mapVectors[multiThreadLevel -1],
@@ -435,7 +436,8 @@ void closeJobHandle(JobHandle job) {
 }
 
 void getJobState(JobHandle job, JobState *state) {
-    auto b = (struct Bundle*) job;
+    auto b =  (struct Bundle*) job;
+
     if (*b->finished)
     {
         state->stage = REDUCE_STAGE;
@@ -463,8 +465,6 @@ void getJobState(JobHandle job, JobState *state) {
         unsigned int read = *(b->atomicCounter);
         unsigned int total =  b->contexts[0].inputVector->size();
         state->stage = MAP_STAGE;
-        state->percentage = (read < total) ? (float)read / ((float)total) * 100: 100;
+        state->percentage = (read < total) ? ((float)read / ((float)total)) * 100: 100;
     }
-
-
 }
