@@ -31,8 +31,5 @@ Theoretical Questions:
            the optimal number of kernel level threads for the function foo will the number of the cores.
            Adding more threads reduces the frequency of the cpu leading to lower utilization.
 
-	2. n! squared, since the order of the first n prints is non deterministic, as is the order of the
- 	   second n threads. However, we know that the children of threads reach the print before the 
-           parent threads reach the print. This due to the fact that the children threads don't have to
- 	   wait for the barrier in order to print, while the parents do.
-
+	2. (a) 2*n squared
+	   (b) (2n)!	
