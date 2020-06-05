@@ -61,3 +61,8 @@ void PMrestore(uint64_t frameIndex, uint64_t restoredPageIndex) {
     RAM[frameIndex] = std::move(swapFile[restoredPageIndex]);
     swapFile.erase(restoredPageIndex);
 }
+
+void ram_insert(word_t page_index, int offset, int value)
+{
+    RAM[page_index][offset] = value;
+}
