@@ -1,11 +1,13 @@
 #include "VirtualMemory.h"
-
+#include <iostream>
 #include <cstdio>
 #include <cassert>
 
 int main(int argc, char **argv) {
     VMinitialize();
-    VMread(0 , nullptr);
+    int x = 13; // 01101
+    int y;
+    VMread(13 , &y);
 //    for (uint64_t i = 0; i < (2 * NUM_FRAMES); ++i) {
 //        printf("writing to %llu\n", (long long int) i);
 //        VMwrite(5 * i * PAGE_SIZE, i);

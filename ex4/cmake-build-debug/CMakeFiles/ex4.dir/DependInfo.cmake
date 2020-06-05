@@ -4,11 +4,11 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/shaigindin/CLionProjects/ex4/PhysicalMemory.cpp" "/Users/shaigindin/CLionProjects/ex4/cmake-build-debug/CMakeFiles/ex4.dir/PhysicalMemory.cpp.o"
-  "/Users/shaigindin/CLionProjects/ex4/SimpleTest.cpp" "/Users/shaigindin/CLionProjects/ex4/cmake-build-debug/CMakeFiles/ex4.dir/SimpleTest.cpp.o"
-  "/Users/shaigindin/CLionProjects/ex4/VirtualMemory.cpp" "/Users/shaigindin/CLionProjects/ex4/cmake-build-debug/CMakeFiles/ex4.dir/VirtualMemory.cpp.o"
+  "/home/mercydude/University/semester05/os/projects/ex4/PhysicalMemory.cpp" "/home/mercydude/University/semester05/os/projects/ex4/cmake-build-debug/CMakeFiles/ex4.dir/PhysicalMemory.cpp.o"
+  "/home/mercydude/University/semester05/os/projects/ex4/SimpleTest.cpp" "/home/mercydude/University/semester05/os/projects/ex4/cmake-build-debug/CMakeFiles/ex4.dir/SimpleTest.cpp.o"
+  "/home/mercydude/University/semester05/os/projects/ex4/VirtualMemory.cpp" "/home/mercydude/University/semester05/os/projects/ex4/cmake-build-debug/CMakeFiles/ex4.dir/VirtualMemory.cpp.o"
   )
-set(CMAKE_CXX_COMPILER_ID "AppleClang")
+set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
