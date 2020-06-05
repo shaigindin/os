@@ -2,7 +2,12 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
-      <config projectName="here" targetName="ex3" />
+      <config projectName="ex3" targetName="gtest_main" />
+      <config projectName="ex3" targetName="gtest" />
+      <config projectName="ex3" targetName="mattanTester" />
+      <config projectName="ex3" targetName="gmock" />
+      <config projectName="ex3" targetName="gmock_main" />
+      <config projectName="ex3" targetName="MapReduceFramework" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -12,18 +17,45 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee10f3e2-9caf-454e-a583-b352afcfb8b9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/ex3.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FileWordCounter.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ex2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ex2/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ex2/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../ex2/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FileWordCounter.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MapReduceFramework.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MapReduceFramework.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MapReduceFramework.h" beforeDir="false" afterPath="$PROJECT_DIR$/MapReduceFramework.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README" beforeDir="false" afterPath="$PROJECT_DIR$/README" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.14.3/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.14.3/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.14.3/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.14.3/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeError.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeError.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ex3.dir/Barrier.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ex3.dir/CXX.includecache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ex3.dir/DependInfo.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ex3.dir/FileWordCounter.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ex3.dir/MapReduceFramework.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ex3.dir/SampleClient.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ex3.dir/build.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ex3.dir/cmake_clean.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ex3.dir/depend.internal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ex3.dir/depend.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ex3.dir/flags.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ex3.dir/link.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ex3.dir/progress.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/ex3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/here.cbp" beforeDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
+    <ignored path="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,29 +70,7 @@
     <favorites_list name="ex3" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="36" selection-start-column="36" selection-end-column="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/MapReduceFramework.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="332">
-              <caret line="433" selection-start-line="433" selection-end-line="433" />
-              <folding>
-                <element signature="e#41#58#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -76,6 +86,7 @@
       <find>state-&gt;percentage</find>
       <find>repetition</find>
       <find>atomicCounter</find>
+      <find>close</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -84,17 +95,18 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/SampleClient.cpp" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/mattanTests/SampleClient.cpp" />
         <option value="$PROJECT_DIR$/MapReduceFramework.cpp" />
       </list>
     </option>
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
-  <component name="ProjectFrameBounds">
-    <option name="x" value="907" />
-    <option name="y" value="139" />
-    <option name="width" value="960" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="112" />
+    <option name="y" value="212" />
+    <option name="width" value="1717" />
     <option name="height" value="1053" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -103,18 +115,23 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="here" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ex3" type="b2602c69:ProjectViewProjectNode" />
               <item name="ex3" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ex3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ex3" type="462c0819:PsiDirectoryNode" />
+              <item name="mattanTests" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -142,12 +159,81 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
-    <configuration name="ex3" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="here" TARGET_NAME="ex3" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="here" RUN_TARGET_NAME="ex3">
+  <component name="RunManager" selected="Google Test.MattanTests.waitAndCloseTest">
+    <configuration name="MattanTests.errorMessageTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ex3" TARGET_NAME="mattanTester" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ex3" RUN_TARGET_NAME="mattanTester" TEST_CLASS="MattanTests" TEST_METHOD="errorMessageTest" TEST_MODE="SUITE_TEST">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="BeforeTestRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MattanTests.outputTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ex3" TARGET_NAME="mattanTester" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ex3" RUN_TARGET_NAME="mattanTester" TEST_CLASS="MattanTests" TEST_METHOD="outputTest" TEST_MODE="SUITE_TEST">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="BeforeTestRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MattanTests.randomTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ex3" TARGET_NAME="mattanTester" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ex3" RUN_TARGET_NAME="mattanTester" TEST_CLASS="MattanTests" TEST_METHOD="randomTest" TEST_MODE="SUITE_TEST">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="BeforeTestRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MattanTests.waitAndCloseTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ex3" TARGET_NAME="mattanTester" RUN_TARGET_PROJECT_NAME="ex3" RUN_TARGET_NAME="mattanTester" TEST_CLASS="MattanTests" TEST_METHOD="waitAndCloseTest" TEST_MODE="SUITE_TEST">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="BeforeTestRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MapReduceFramework" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ex3" TARGET_NAME="MapReduceFramework" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="gmock" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ex3" TARGET_NAME="gmock" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="gmock_main" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ex3" TARGET_NAME="gmock_main" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="gtest" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ex3" TARGET_NAME="gtest" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="gtest_main" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ex3" TARGET_NAME="gtest_main" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="mattanTester" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ex3" TARGET_NAME="mattanTester" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ex3" RUN_TARGET_NAME="mattanTester">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="CMake Application.MapReduceFramework" />
+      <item itemvalue="CMake Application.gmock" />
+      <item itemvalue="CMake Application.gmock_main" />
+      <item itemvalue="CMake Application.gtest" />
+      <item itemvalue="CMake Application.gtest_main" />
+      <item itemvalue="CMake Application.mattanTester" />
+      <item itemvalue="Google Test.MattanTests.outputTest" />
+      <item itemvalue="Google Test.MattanTests.randomTest" />
+      <item itemvalue="Google Test.MattanTests.errorMessageTest" />
+      <item itemvalue="Google Test.MattanTests.waitAndCloseTest" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Google Test.MattanTests.waitAndCloseTest" />
+        <item itemvalue="Google Test.MattanTests.errorMessageTest" />
+        <item itemvalue="Google Test.MattanTests.randomTest" />
+        <item itemvalue="Google Test.MattanTests.outputTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -165,29 +251,61 @@
       <workItem from="1590432102965" duration="9994000" />
       <workItem from="1590778095743" duration="4568000" />
       <workItem from="1590783238937" duration="297000" />
+      <workItem from="1590789104536" duration="4000" />
+      <workItem from="1590789282034" duration="1415000" />
+      <workItem from="1590932901812" duration="146000" />
+      <workItem from="1590933225966" duration="956000" />
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="MattanTests_outputTest - 2020.05.30 at 01h 05m 14s.xml">
+      <configuration name="MattanTests.outputTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="MattanTests_randomTest - 2020.05.30 at 01h 05m 34s.xml">
+      <configuration name="MattanTests.randomTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="MattanTests_errorMessageTest - 2020.05.30 at 01h 05m 43s.xml">
+      <configuration name="MattanTests.errorMessageTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="MattanTests_errorMessageTest - 2020.05.30 at 01h 06m 32s.xml">
+      <configuration name="MattanTests.errorMessageTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="MattanTests_errorMessageTest - 2020.05.30 at 01h 07m 07s.xml">
+      <configuration name="MattanTests.errorMessageTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="MattanTests_waitAndCloseTest - 2020.05.31 at 16h 49m 34s.xml">
+      <configuration name="MattanTests.waitAndCloseTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17637000" />
+    <option name="totallyTimeSpent" value="20357000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="585" y="244" width="960" height="1053" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="25" width="1920" height="1055" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.57384616" visible="true" weight="0.42997813" />
-      <window_info id="Structure" order="1" sideWeight="0.42615384" side_tool="true" weight="0.20971185" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5723542" visible="true" weight="0.28815368" />
+      <window_info active="true" id="Structure" order="1" sideWeight="0.4276458" side_tool="true" visible="true" weight="0.28815368" />
       <window_info id="Team" order="2" sideWeight="0.42266187" side_tool="true" weight="0.2054429" />
       <window_info id="Favorites" order="3" sideWeight="0.42266187" side_tool="true" weight="0.2054429" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.2987013" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.42316017" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39956802" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32900432" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
-      <window_info anchor="bottom" id="Messages" order="8" weight="0.32937366" />
+      <window_info active="true" anchor="bottom" id="Messages" order="8" visible="true" weight="0.32900432" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="11" />
@@ -220,20 +338,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SampleClient/FileWordCounter.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="10" lean-forward="true" selection-start-column="10" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FileWordCounter.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="206" column="4" selection-start-line="206" selection-start-column="4" selection-end-line="206" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/SampleClient/FileWordCounter.cpp" />
+    <entry file="file://$PROJECT_DIR$/FileWordCounter.cpp" />
     <entry file="file://$PROJECT_DIR$/../ex2/jona/test3.out.out">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -255,26 +361,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/randomstring.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="36" selection-start-column="36" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SampleClient.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8162">
-          <caret line="371" column="72" selection-start-line="371" selection-start-column="71" selection-end-line="371" selection-end-column="72" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/randomstring.txt" />
+    <entry file="file://$PROJECT_DIR$/SampleClient.cpp" />
     <entry file="file://$PROJECT_DIR$/README">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
@@ -284,11 +372,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MapReduceFramework.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="433" selection-start-line="433" selection-end-line="433" />
+        <state relative-caret-position="489">
+          <caret line="311" column="7" lean-forward="true" selection-start-line="311" selection-start-column="7" selection-end-line="311" selection-end-column="7" />
           <folding>
             <element signature="e#41#58#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mattanTests/SampleClient.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="398" column="24" lean-forward="true" selection-start-line="398" selection-start-column="24" selection-end-line="398" selection-end-column="24" />
+          <folding>
+            <element signature="e#357#475#1" />
+            <element signature="e#478#795#1" />
+            <element signature="e#556#665#0" />
+            <element signature="e#671#780#0" />
+            <element signature="e#798#919#1" />
+            <element signature="e#923#2608#1" />
+            <element signature="e#1155#1233#0" />
+            <element signature="e#1239#1498#0" />
+            <element signature="e#1504#2210#0" />
+            <element signature="e#2216#2606#0" />
+            <element signature="e#3345#10953#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="15" column="40" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="726">
+          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
         </state>
       </provider>
     </entry>

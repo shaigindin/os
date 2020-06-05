@@ -9,7 +9,9 @@
 #include <pthread.h>
 //#include <algorithm>
 
-
+static const char *const SYSTEM_ERROR_MUTEX_FAILED = "system error: mutex failed.";
+static const char *const SYSTEM_ERROR_UTHREAD_FAILED = "system error: pthread failed.";
+static const int SUCCESS = 0;
 
 /**
  * a struct used as a context for each created thread, to obtain various data.
@@ -29,8 +31,8 @@ struct mapThreadContext {
     const MapReduceClient* client{};
     const InputVec* inputVector{};
     OutputVec* outputVector{};
-    int totalThreadNum{};
-    int threadId{};
+    unsigned int totalThreadNum{};
+    unsigned int threadId{};
     std::vector<IntermediatePair>* threadVector{};
     Barrier* barrier{};
     pthread_mutex_t* mutexArray{};
@@ -96,22 +98,12 @@ void reducePhase(mapThreadContext *context)
 {
     unsigned int currentIndex = (*(context->atomicCounter2))++;;
     while (currentIndex < context->uniqe->size()) {
-//        if (pthread_mutex_lock() != SUCCESS){
-//            std::cerr << SYSTEM_ERROR_MUTEX_FAILED << std::endl;
-//            exit(EXIT_FAILURE);
-//        }
-
         lockMutexWrapper(context->read);
 
         K2* key = context->uniqe->at(currentIndex);
         std::vector<V2 *> val = (*context->mapFinal)[key];
 
         unlockMutexWrapper(context->read);
-
-//        if (pthread_mutex_unlock(context->read) != SUCCESS){
-//            std::cerr << SYSTEM_ERROR_MUTEX_FAILED << std::endl;
-//            exit(EXIT_FAILURE);
-//        }
 
         context->client->reduce(key, val , context);
         currentIndex = (*(context->atomicCounter2))++;
@@ -120,12 +112,8 @@ void reducePhase(mapThreadContext *context)
 
 void emptyAllThreadsVectors(mapThreadContext *context)
 {
-    for (int i=0 ; i < (context->totalThreadNum - 1); i++)
+    for (unsigned  int i=0 ; i < (context->totalThreadNum - 1); i++)
     {
-//        if (pthread_mutex_lock(&context->mutexArray[i]) != SUCCESS){
-//            std::cerr << SYSTEM_ERROR_MUTEX_FAILED  << std::endl;
-//            exit(EXIT_FAILURE);
-//        }
         lockMutexWrapper(&context->mutexArray[i]);
 
         std::vector<IntermediatePair>& threadIVector = *context->mapVectors[i];
@@ -137,11 +125,6 @@ void emptyAllThreadsVectors(mapThreadContext *context)
         context->mapVectors[i]->clear();
 
         unlockMutexWrapper(&context->mutexArray[i]);
-
-//        if (pthread_mutex_unlock(&(context->mutexArray[i])) != SUCCESS){
-//            std::cerr << SYSTEM_ERROR_MUTEX_FAILED << std::endl;
-//            exit(EXIT_FAILURE);
-//        }
     }
 }
 
@@ -202,8 +185,7 @@ void* threadFunction(void* arg) {
     {
         *context->finished = true;
     }
-
-
+    return nullptr;
 }
 
 void initialize(struct Bundle* b, int multiThreadLevel)
@@ -239,29 +221,44 @@ void initialize(struct Bundle* b, int multiThreadLevel)
     pthread_mutex_init(b->read, nullptr);
 }
 
-void createThreads(struct Bundle* b,const MapReduceClient& client,
+void makeThread(struct Bundle* b, int i, const MapReduceClient& client,
+               const InputVec& inputVec, OutputVec& outputVec,
+               int multiThreadLevel){
+    b->mapVectors[i] = new std::vector<IntermediatePair>();
+    b->contexts[i].atomicCounter3 = b->atomicCounter3;
+    b->contexts[i].mapping =b->mapping;
+    b->contexts[i].shuffeling = b->shuffeling;
+    b->contexts[i].finished = b->finished;
+    b->contexts[i].mapFinal = b->mapFinal;
+    b->contexts[i].uniqe = b->uniqe;
+    b->contexts[i].atomicCounter =b->atomicCounter;
+    b->contexts[i].atomicCounter2 = b->atomicCounter2;
+    b->contexts[i].atomicCounterForFinishReadFromINputVector = b->atomicCounterForFinishReadFromINputVector;
+    b->contexts[i].intermediatePairsProduced = b->intermediatePairsProduced;
+    b->contexts[i].intermediatePairsInMap = b->intermediatePairsInMap;
+    b->contexts[i].client = &client;
+    b->contexts[i].inputVector = &inputVec;
+    b->contexts[i].outputVector = &outputVec;
+    b->contexts[i].totalThreadNum =  multiThreadLevel;
+    b->contexts[i].threadId = i;
+    b->contexts[i].threadVector = b->mapVectors[i];
+    b->contexts[i].barrier =b->barrier;
+    b->contexts[i].mutexArray = b->mutexArray;
+    b->contexts[i].read = b->read;
+    b->contexts[i].write = b->write;
+}
+
+void createThreads(struct Bundle* b, const MapReduceClient& client,
                    const InputVec& inputVec, OutputVec& outputVec,
                    int multiThreadLevel)
 {
     //creating a context for each created thread.
     for (int i = 0; i < multiThreadLevel - 1; ++i) {
-        b->mapVectors[i] = new std::vector<IntermediatePair>();
-        b->contexts[i] = {b->atomicCounter3, b->mapping, b->shuffeling, b->finished, b->mapFinal, b->uniqe,b->atomicCounter,
-                          b->atomicCounter2, b->atomicCounterForFinishReadFromINputVector,
-                          b->intermediatePairsProduced ,b->intermediatePairsInMap,
-                          &client,
-                          &inputVec, &outputVec, multiThreadLevel, i,
-                          b->mapVectors[i], b->barrier, b->mutexArray, b->read, b->write};
+        makeThread(b,i,client,inputVec,outputVec, multiThreadLevel);
     }
     //creates the special thread shuffle context
-    b->contexts[multiThreadLevel -1] = {b->atomicCounter3, b->mapping, b->shuffeling, b->finished,
-                                        b->mapFinal,b->uniqe,b->atomicCounter,b->atomicCounter2,
-                                        b->atomicCounterForFinishReadFromINputVector,
-                                        b->intermediatePairsProduced ,b->intermediatePairsInMap,
-                                        &client,
-                                        &inputVec, &outputVec, multiThreadLevel, multiThreadLevel -1,
-                                        b->mapVectors[multiThreadLevel -1],
-                                        b->barrier, b->mutexArray,b->read,  b->write, b->mapVectors};
+    makeThread(b, multiThreadLevel -1, client,inputVec,outputVec, multiThreadLevel);
+    b->contexts[multiThreadLevel -1].mapVectors =  b->mapVectors;
 
     //creating multiThreadLevel threads.
     for (int j = 0; j < multiThreadLevel; ++j) {
@@ -295,22 +292,12 @@ void emit2 (K2* key, V2* value, void* arg){
     mapThreadContext* context = (mapThreadContext*) arg;
     IntermediatePair pair(key, value);
 
-//    if (pthread_mutex_lock(&(context->mutexArray[context->threadId])) != SUCCESS){
-//        std::cerr << SYSTEM_ERROR_MUTEX_FAILED  << std::endl;
-//        exit(EXIT_FAILURE);
-//    }
-
     lockMutexWrapper(&(context->mutexArray[context->threadId]));
 
     (*(context->intermediatePairsProduced))++;
     context->threadVector->push_back(pair);
 
     unlockMutexWrapper(&(context->mutexArray[context->threadId]));
-
-//    if (pthread_mutex_unlock(&(context->mutexArray[context->threadId])) != SUCCESS){
-//        std::cerr << SYSTEM_ERROR_MUTEX_FAILED << std::endl;
-//        exit(EXIT_FAILURE);
-//    }
 }
 
 void waitForJob(JobHandle job) {
@@ -319,33 +306,22 @@ void waitForJob(JobHandle job) {
     {
         for (int k = 0; k < b->threadNumber; ++k) {
             if (pthread_join(b->threads[k], nullptr) != SUCCESS){
-                std::cerr << "pthread_join failed." << std::endl;
+                std::cerr <<SYSTEM_ERROR_UTHREAD_FAILED << std::endl;
                 exit(EXIT_FAILURE);
             }
         }
         b->wasInWaitFunc = true;
     }
-
-
-
 }
 
 void emit3(K3 *key, V3 *value, void *arg) {
     mapThreadContext* context = (mapThreadContext*) arg;
     OutputPair pair(key, value);
-//    if (pthread_mutex_lock(context->write) != SUCCESS){
-//        std::cerr << SYSTEM_ERROR_MUTEX_FAILED  << std::endl;
-//        exit(EXIT_FAILURE);
-//    }
     lockMutexWrapper(context->write);
 
     context->outputVector->push_back(pair);
 
     unlockMutexWrapper(context->write);
-//    if (pthread_mutex_unlock(context->write) != SUCCESS){
-//        std::cerr << SYSTEM_ERROR_MUTEX_FAILED << std::endl;
-//        exit(EXIT_FAILURE);
-//    }
 }
 
 void emptyContext(struct Bundle* b)
@@ -402,12 +378,13 @@ void closeJobHandle(JobHandle job) {
     emptyContext(b);
 
 
-    for (int i = 0; i < multiThreadLevel - 1; ++i) {
+    for (int i = 0; i < multiThreadLevel; ++i) {
         delete b->mapVectors[i];
     }
     
     delete b->mapFinal;
 
+    delete b->atomicCounter3;
     delete b->atomicCounter;
     delete b->atomicCounter2;
     delete b->intermediatePairsProduced;
@@ -454,7 +431,8 @@ void getJobState(JobHandle job, JobState *state) {
     //in the shuffle stage
     else if (*b->mapping)
     {
-        unsigned int total = *(b->intermediatePairsProduced);
+        unsigned int to    makeThread(b, multiThreadLevel -1, client,inputVec,outputVec, multiThreadLevel);
+tal = *(b->intermediatePairsProduced);
         unsigned int read =  *(b->intermediatePairsInMap);
         state->stage = SHUFFLE_STAGE;
         state->percentage = (read < total) ? (float)read / ((float)total) * 100: 100;

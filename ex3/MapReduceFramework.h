@@ -3,14 +3,10 @@
 
 #include "MapReduceClient.h"
 
-
 typedef void* JobHandle;
 
 enum stage_t {UNDEFINED_STAGE=0, MAP_STAGE=1, SHUFFLE_STAGE=2, REDUCE_STAGE=3};
 
-static const int SUCCESS = 0;
-static const char *const SYSTEM_ERROR_MUTEX_FAILED = "mutex failed.";
-static const char *const SYSTEM_ERROR_UTHREAD_FAILED = "pthread_create failed.";
 typedef struct {
 	stage_t stage;
 	float percentage;
@@ -26,6 +22,6 @@ JobHandle startMapReduceJob(const MapReduceClient& client,
 void waitForJob(JobHandle job);
 void getJobState(JobHandle job, JobState* state);
 void closeJobHandle(JobHandle job);
-
-
+	
+	
 #endif //MAPREDUCEFRAMEWORK_H

@@ -27,9 +27,9 @@ Analysis of results:
 	
 Theoretical Questions:
 
-	1. Due to the fact that there is no memory access,
-           the optimal number of kernel level threads for the function foo will the number of the cores.
-           Adding more threads reduces the frequency of the cpu leading to lower utilization.
+	1. since there is no memory access,
+           the ideal amount of kernel level threads for the function foo should be identical to the amount of the cores.
+            the greater the amount of threads, the lower the frequency of the cpu leading to lower utilization.
 
 	2. (a) 2*n squared
-	   (b) (2n)!	
+	   (b) (n!)^2	
