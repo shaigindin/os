@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/shaigindin/CLionProjects/ex4/MemoryConstants.h
+climits
+-
+stdint.h
+-
+
+/Users/shaigindin/CLionProjects/ex4/PhysicalMemory.h
+MemoryConstants.h
+/Users/shaigindin/CLionProjects/ex4/MemoryConstants.h
+
+/Users/shaigindin/CLionProjects/ex4/VirtualMemory.cpp
+iostream
+-
+VirtualMemory.h
+/Users/shaigindin/CLionProjects/ex4/VirtualMemory.h
+PhysicalMemory.h
+/Users/shaigindin/CLionProjects/ex4/PhysicalMemory.h
+
+/Users/shaigindin/CLionProjects/ex4/VirtualMemory.h
+MemoryConstants.h
+/Users/shaigindin/CLionProjects/ex4/MemoryConstants.h
+
