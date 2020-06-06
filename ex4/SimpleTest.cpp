@@ -2,7 +2,6 @@
 
 #include <cstdio>
 #include <cassert>
-#include <iostream>
 
 int main(int argc, char **argv) {
     VMinitialize();

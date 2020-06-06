@@ -82,6 +82,7 @@ int DfsFindBlank(u_int64_t cant_be_used, int* max_frame,
         return 0;
     }
     bool is_all_zero = true;
+    trace = (trace << OFFSET_WIDTH);
     for (uint64_t i = 0; i < PAGE_SIZE; ++i)
     {
         word_t next_frame_index;
@@ -91,10 +92,10 @@ int DfsFindBlank(u_int64_t cant_be_used, int* max_frame,
             is_all_zero = false;
             father = current_frame_index;
             offset = i;
-            trace = (trace << OFFSET_WIDTH) + offset;
+            u_int64_t  trace1 = trace + offset;
             if (DfsFindBlank(cant_be_used , max_frame , depth + 1 , availabe_frame ,
                              next_frame_index, father, offset, page_swapped_in, max_value,
-                             frame_to_evict, trace, page_to_evict_add_in_father, page_to_evict))
+                             frame_to_evict, trace1, page_to_evict_add_in_father, page_to_evict))
             {
                 return 1;
             }
@@ -233,6 +234,7 @@ int VMread(uint64_t virtualAddress, word_t* value)
     PMread(0 + offset, &next_address);
     readRec(virtualAddress , value, depth,
             &next_address, current_address, getPageRoute(virtualAddress), page_swapped_in, READ);
+//    print_ram();
     return 1;
 }
 
@@ -247,5 +249,6 @@ int VMwrite(uint64_t virtualAddress, word_t value)
     PMread(0 + offset, &next_address);
     readRec(virtualAddress , &value, depth,
             &next_address, current_address, getPageRoute(virtualAddress), page_swapped_in, WRITE);
+//    print_ram();
     return 1;
 }
