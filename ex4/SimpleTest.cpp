@@ -12,7 +12,7 @@ int main(int argc, char **argv) {
 //    std::cout << "************" << std::endl;
 //    VMread(6 , &y); // 0110
     VMread(31 , &y);
-    std::cout << "this is for second " << y << std::endl;
+//    std::cout << "this is for second " << y << std::endl;
 //    for (uint64_t i = 0; i < (2 * NUM_FRAMES); ++i) {
 //        printf("writing to %llu\n", (long long int) i);
 //        VMwrite(5 * i * PAGE_SIZE, i);
