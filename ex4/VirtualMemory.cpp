@@ -34,6 +34,9 @@ void VMinitialize() {
     ram_insert(4, 0, 0);
     ram_insert(4, 1, 1337);
     PMevict(4, 6);
+    ram_insert(4 , 0, 0);
+    ram_insert(4,1,0);
+
     ram_insert(7, 0, 0);
     ram_insert(7, 1, 1001);
     PMevict(7, 3);
@@ -66,6 +69,9 @@ int DfsFindBlank(u_int64_t cant_be_used, int* max_frame, int depth, uint64_t*  a
 
     if (is_all_zero && current_frame_index != cant_be_used)
     {
+        std::cout << "not availabe " <<  cant_be_used << std::endl;
+        std::cout << "current frame  " <<  current_frame_index << std::endl;
+
         *availabe_frame = current_frame_index;
         return 1;
     }
@@ -82,7 +88,7 @@ uint64_t fetchBlock(u_int64_t cant_be_used){
     u_int64_t availabe_frame = 0;
     u_int64_t current_frame = 0;
     if (DfsFindBlank(cant_be_used, &max_frame, depth, &availabe_frame, current_frame)){
-        std::cout << "should be here because no \n";
+//        std::cout << "should be here because no frame found\n";
         return availabe_frame;
     }
     if (max_frame < NUM_FRAMES){
@@ -92,12 +98,13 @@ uint64_t fetchBlock(u_int64_t cant_be_used){
 }
 
 uint64_t AdressOffset(uint64_t virtualAddress, int depth){
-    return virtualAddress >> (TABLES_DEPTH - depth) * OFFSET_WIDTH;
+    return virtualAddress >>  (VIRTUAL_ADDRESS_WIDTH -  (depth * OFFSET_WIDTH) );
 }
 
 uint64_t AddressSlicer(uint64_t addr, int depth)
 {
-    return (addr % (1 << ((TABLES_DEPTH - depth) * OFFSET_WIDTH)));
+    //return (addr % (1 << ((TABLES_DEPTH - depth) * OFFSET_WIDTH)));
+    return addr % (1 << (VIRTUAL_ADDRESS_WIDTH -  (depth * OFFSET_WIDTH) ));
 }
 
 uint64_t getPageRoute(uint64_t page)
@@ -155,6 +162,10 @@ void readRec(uint64_t virtualAddress, word_t* value, int depth,
 
 
 int VMread(uint64_t virtualAddress, word_t* value) {
+//    std::cout << "offset " << AdressOffset(virtualAddress , 0) << std::endl;
+//    virtualAddress = AddressSlicer(virtualAddress, 1);
+//    std::cout << "new adress " << virtualAddress << std::endl;
+
     word_t next_address;
     word_t current_address = 0;
     uint64_t offset = AdressOffset(virtualAddress, 0);
@@ -162,6 +173,7 @@ int VMread(uint64_t virtualAddress, word_t* value) {
     int depth = 1;
     readRec(virtualAddress , value, depth,
             &next_address, current_address, getPageRoute(virtualAddress));
+    print_ram();
     return 1;
 }
 

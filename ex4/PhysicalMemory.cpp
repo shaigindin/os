@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <cassert>
 #include <cstdio>
+#include <iostream>
 
 typedef std::vector<word_t> page_t;
 
@@ -65,4 +66,17 @@ void PMrestore(uint64_t frameIndex, uint64_t restoredPageIndex) {
 void ram_insert(word_t page_index, int offset, int value)
 {
     RAM[page_index][offset] = value;
+}
+
+
+void print_ram(){
+    int counter = 0;
+
+    for (auto v : RAM){
+        std::cout << "frame " <<  counter << std::endl;
+        counter++;
+        for (auto x : v){
+            std::cout << x << std::endl;
+        }
+    }
 }
