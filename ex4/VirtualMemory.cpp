@@ -4,6 +4,8 @@
 #include "VirtualMemory.h"
 #include "PhysicalMemory.h"
 
+#define READ 0
+#define WRITE 1
 
 
 void clearTable(uint64_t frameIndex) {
@@ -16,31 +18,31 @@ void VMinitialize() {
     clearTable(0);
     // Random Access Memory
     // -- FRAME 0 --
-    ram_insert(0, 0, 1);
-    ram_insert(0, 1, 0);
-    // -- FRAME 1 --
-    ram_insert(1, 0, 5);
-    ram_insert(1, 1, 2);
-    // -- FRAME 2 --
-    ram_insert(2, 0, 0);
-    ram_insert(2, 1, 3);
-    // -- FRAME 3 --
-    ram_insert(3, 0, 4);
-    ram_insert(3, 1, 0);
-    // -- FRAME 4 --
-    ram_insert(4, 0, 9);
-    ram_insert(4, 1, 2);
-    // -- FRAME 5 --
-    ram_insert(5 , 0, 0);
-    ram_insert(5, 1, 6);
-    // -- FRAME 6 --
-    ram_insert(6, 0, 0);
-    ram_insert(6, 1, 7);
-    // -- FRAME 7 --
-    ram_insert(7, 0, 5);
-    ram_insert(7, 1, 5);
+//    ram_insert(0, 0, 1);
+//    ram_insert(0, 1, 0);
+//    // -- FRAME 1 --
+//    ram_insert(1, 0, 5);
+//    ram_insert(1, 1, 2);
+//    // -- FRAME 2 --
+//    ram_insert(2, 0, 0);
+//    ram_insert(2, 1, 3);
+//    // -- FRAME 3 --
+//    ram_insert(3, 0, 4);
+//    ram_insert(3, 1, 0);
+//    // -- FRAME 4 --
+//    ram_insert(4, 0, 1336);
+//    ram_insert(4, 1, 1337);
+//    // -- FRAME 5 --
+//    ram_insert(5 , 0, 0);
+//    ram_insert(5, 1, 6);
+//    // -- FRAME 6 --
+//    ram_insert(6, 0, 0);
+//    ram_insert(6, 1, 6);
+//    // -- FRAME 7 --
+//    ram_insert(7, 0, 8887);
+//    ram_insert(7, 1, 8888);
 
-    PMevict(7,15);
+
 }
 
 u_int64_t abs(u_int64_t page_swapped_in, u_int64_t current_frame_index){
@@ -50,7 +52,9 @@ u_int64_t abs(u_int64_t page_swapped_in, u_int64_t current_frame_index){
     return page_swapped_in - current_frame_index;
 }
 
-u_int64_t min(u_int64_t a, u_int64_t b){
+
+u_int64_t min(u_int64_t a, u_int64_t b)
+{
     if (a>b){
         return b;
     }
@@ -61,18 +65,19 @@ u_int64_t min(u_int64_t a, u_int64_t b){
 int DfsFindBlank(u_int64_t cant_be_used, int* max_frame,
                  int depth, uint64_t*  availabe_frame, u_int64_t current_frame_index,
                  u_int64_t father, u_int64_t offset, u_int64_t page_swapped_in, int* max_value,
-                 u_int64_t* page_to_evict, u_int64_t trace,u_int64_t* page_to_evict_add_in_father){
+                 u_int64_t* frame_to_evict, u_int64_t trace,u_int64_t* page_to_evict_add_in_father,
+                 u_int64_t* page_to_evict){
     if (current_frame_index > *max_frame) {
         *max_frame = current_frame_index;
     }
     if (depth == TABLES_DEPTH){
         u_int64_t a =  abs(page_swapped_in, trace);
         int  page_score = min(NUM_PAGES - a , a);
-        std::cout << "FRAME: " << trace << "  SCORE: " << page_score << "\n";
         if (page_score > *max_value){
             *max_value = page_score;
-            *page_to_evict = current_frame_index;
+            *frame_to_evict = current_frame_index;
             *page_to_evict_add_in_father = (father * PAGE_SIZE) + offset;
+            *page_to_evict = trace;
         }
         return 0;
     }
@@ -88,7 +93,8 @@ int DfsFindBlank(u_int64_t cant_be_used, int* max_frame,
             offset = i;
             trace = (trace << OFFSET_WIDTH) + offset;
             if (DfsFindBlank(cant_be_used , max_frame , depth + 1 , availabe_frame ,
-                             next_frame_index, father, offset, page_swapped_in, max_value, page_to_evict, trace, page_to_evict_add_in_father))
+                             next_frame_index, father, offset, page_swapped_in, max_value,
+                             frame_to_evict, trace, page_to_evict_add_in_father, page_to_evict))
             {
                 return 1;
             }
@@ -118,18 +124,20 @@ uint64_t fetchBlock(u_int64_t cant_be_used, u_int64_t page_swapped_in){
     u_int64_t frame_to_evict;
     u_int64_t trace = 0;
     u_int64_t page_to_evict_add_in_father;
+    u_int64_t page_to_evict = 0;
     // OPTIONS 1 AND 2
     if (DfsFindBlank(cant_be_used, &max_frame, depth, &availabe_frame, current_frame, father,
                      offset, page_swapped_in, &max_value, &frame_to_evict, trace,
-                     &page_to_evict_add_in_father)){
+                     &page_to_evict_add_in_father, &page_to_evict)){
         return availabe_frame;
     }
-    if (max_frame < NUM_FRAMES - 1){
+    if (max_frame < NUM_FRAMES - 1)
+    {
         return max_frame + 1;
     }
     // OPTION 3
     PMwrite(page_to_evict_add_in_father, 0);
-    std::cout << "evict " << frame_to_evict << std::endl;
+    PMevict(frame_to_evict, page_to_evict);
     return frame_to_evict;
 }
 
@@ -162,7 +170,7 @@ uint64_t getPageRoute(uint64_t page)
  */
 void readRec(uint64_t virtualAddress, word_t* value, int depth,
         word_t* next_address, word_t current_frame_index, uint64_t restoredFrameIndex,
-                                                                uint64_t page_swapped_in)
+                                                                uint64_t page_swapped_in, int rw)
 {
     if (*next_address == 0)
     {
@@ -170,8 +178,15 @@ void readRec(uint64_t virtualAddress, word_t* value, int depth,
         {
             PMrestore(current_frame_index, restoredFrameIndex);
             uint64_t offset = AdressOffset(virtualAddress, depth);
-            PMread(current_frame_index * PAGE_SIZE + offset, next_address);
-            *value = *next_address;
+            if (rw == READ)
+            {
+                PMread(current_frame_index * PAGE_SIZE + offset, next_address);
+                *value = *next_address;
+            }
+            else // WRITE
+            {
+                PMwrite(current_frame_index * PAGE_SIZE + offset, *value);
+            }
             return;
         }
         uint64_t unused_frame = fetchBlock(current_frame_index, page_swapped_in);
@@ -180,12 +195,10 @@ void readRec(uint64_t virtualAddress, word_t* value, int depth,
         PMwrite((current_frame_index) * PAGE_SIZE + offset, unused_frame);
         *next_address = unused_frame;
         readRec(virtualAddress, value, depth,
-                next_address, current_frame_index, restoredFrameIndex, page_swapped_in);
+                next_address, current_frame_index, restoredFrameIndex, page_swapped_in, rw);
     }
     else if (TABLES_DEPTH == depth)
     {
-        uint64_t offset = AdressOffset(virtualAddress, depth);
-        PMread((*next_address) * PAGE_SIZE + offset, next_address);
         *value = *next_address;
         return;
     }
@@ -195,9 +208,14 @@ void readRec(uint64_t virtualAddress, word_t* value, int depth,
         depth++;
         uint64_t offset = AdressOffset(virtualAddress, depth);
         current_frame_index = *next_address;
+        if (TABLES_DEPTH == depth && rw == WRITE)
+        {
+            PMwrite((*next_address) * PAGE_SIZE + offset, *value);
+            return;
+        }
         PMread((*next_address) * PAGE_SIZE + offset, next_address);
         readRec(virtualAddress, value, depth,
-                next_address, current_frame_index, restoredFrameIndex, page_swapped_in);
+                next_address, current_frame_index, restoredFrameIndex, page_swapped_in, rw);
     }
 }
 
@@ -214,13 +232,20 @@ int VMread(uint64_t virtualAddress, word_t* value)
     uint64_t offset = AdressOffset(virtualAddress, depth);
     PMread(0 + offset, &next_address);
     readRec(virtualAddress , value, depth,
-            &next_address, current_address, getPageRoute(virtualAddress), page_swapped_in);
-    print_ram();
+            &next_address, current_address, getPageRoute(virtualAddress), page_swapped_in, READ);
     return 1;
 }
 
 
 int VMwrite(uint64_t virtualAddress, word_t value)
 {
+    int depth = 0;
+    uint64_t page_swapped_in = getLogicPageFromLogigAdress(virtualAddress);
+    word_t next_address;
+    word_t current_address = 0;
+    uint64_t offset = AdressOffset(virtualAddress, depth);
+    PMread(0 + offset, &next_address);
+    readRec(virtualAddress , &value, depth,
+            &next_address, current_address, getPageRoute(virtualAddress), page_swapped_in, WRITE);
     return 1;
 }

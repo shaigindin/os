@@ -42,6 +42,7 @@ void PMevict(uint64_t frameIndex, uint64_t evictedPageIndex) {
 
     assert(swapFile.find(evictedPageIndex) == swapFile.end());
     assert(frameIndex < NUM_FRAMES);
+    std::cout << evictedPageIndex << "---SHIT---" << NUM_PAGES << std::endl;
     assert(evictedPageIndex < NUM_PAGES);
 
     swapFile[evictedPageIndex] = RAM[frameIndex];
