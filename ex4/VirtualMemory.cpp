@@ -7,6 +7,9 @@
 
 static int max_frame_index;
 
+
+
+
 void clearTable(uint64_t frameIndex) {
     for (uint64_t i = 0; i < PAGE_SIZE; ++i) {
         PMwrite(frameIndex * PAGE_SIZE + i, 0);
@@ -31,23 +34,60 @@ void VMinitialize() {
     ram_insert(4, 0, 0);
     ram_insert(4, 1, 1337);
     PMevict(4, 6);
+    ram_insert(7, 0, 0);
+    ram_insert(7, 1, 1001);
+    PMevict(7, 3);
 }
 
-int DfsFindBlank(uint64_t* frame_number)
-{
-    // TODO: implement
-}
-
-uint64_t fetchBlock()
-{
-    if (max_frame_index < NUM_FRAMES)
-    {
-        return max_frame_index++;
+int DfsFindBlank(u_int64_t cant_be_used, int* max_frame, int depth, uint64_t*  availabe_frame,
+                                                                        u_int64_t current_frame_index){
+    std::cout << "this is current frame "<< current_frame_index << "\n";
+    if (current_frame_index > *max_frame) {
+        *max_frame = current_frame_index;
     }
-    uint64_t frame_number;
-    if (DfsFindBlank(&frame_number)) // We've found a block with zeros
+    if (depth == TABLES_DEPTH){
+        return 0;
+    }
+    bool is_all_zero = true;
+    for (uint64_t i = 0; i < PAGE_SIZE; ++i)
     {
-        return frame_number;
+        word_t next_frame_index;
+        PMread(current_frame_index * PAGE_SIZE + i , &next_frame_index);
+        if (next_frame_index != 0)
+        {
+            is_all_zero = false;
+            if (DfsFindBlank(cant_be_used , max_frame , depth + 1 , availabe_frame ,
+                             next_frame_index))
+            {
+                return 1;
+            }
+        }
+    }
+
+    if (is_all_zero && current_frame_index != cant_be_used)
+    {
+        *availabe_frame = current_frame_index;
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+
+
+}
+
+uint64_t fetchBlock(u_int64_t cant_be_used){
+    int max_frame = 0, depth = 0;
+    u_int64_t availabe_frame = 0;
+    u_int64_t current_frame = 0;
+    if (DfsFindBlank(cant_be_used, &max_frame, depth, &availabe_frame, current_frame)){
+        std::cout << "should be here because no \n";
+        return availabe_frame;
+    }
+    if (max_frame < NUM_FRAMES){
+        std::cout << max_frame << "\n";
+        return max_frame + 1;
     }
 }
 
@@ -71,20 +111,19 @@ uint64_t getPageRoute(uint64_t page)
  * @param value The end result to read (The value in the actual RAM).
  * @param depth Recursion depth.
  * @param next_address The pointer to the next frame.
- * @param current_address  The pointer from the current frame.
+ * @param current_address  The pointer to the current frame.
  */
 void readRec(uint64_t virtualAddress, word_t* value, int depth,
         word_t* next_address, word_t current_address, uint64_t restoredFrameIndex){
     if (*next_address == 0)
     {
-        uint64_t unused_frame = fetchBlock();
+        uint64_t unused_frame = fetchBlock(current_address);
         clearTable(unused_frame);
         if (TABLES_DEPTH == depth)
         {
             PMrestore(unused_frame, restoredFrameIndex);
             uint64_t offset = AdressOffset(virtualAddress, depth);
             PMread(unused_frame * PAGE_SIZE + offset, next_address);
-            std::cout << *next_address << std::endl;
             *value = *next_address;
             return;
         }
@@ -98,13 +137,11 @@ void readRec(uint64_t virtualAddress, word_t* value, int depth,
     {
         uint64_t offset = AdressOffset(virtualAddress, depth);
         PMread((*next_address) * PAGE_SIZE + offset, next_address);
-        std::cout << *next_address << std::endl;
         *value = *next_address;
         return;
     }
     else if (*next_address != 0)
     {
-        std::cout << *next_address << std::endl;
         uint64_t offset = AdressOffset(virtualAddress, depth);
         current_address = *next_address;
         PMread((*next_address) * PAGE_SIZE + offset, next_address);

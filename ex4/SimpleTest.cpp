@@ -8,6 +8,9 @@ int main(int argc, char **argv) {
     int x = 13; // 01101
     int y;
     VMread(13 , &y);
+    std::cout << "************" << std::endl;
+    VMread(6 , &y);
+//    std::cout << "this is for second " << y << std::endl;
 //    for (uint64_t i = 0; i < (2 * NUM_FRAMES); ++i) {
 //        printf("writing to %llu\n", (long long int) i);
 //        VMwrite(5 * i * PAGE_SIZE, i);
