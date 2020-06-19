@@ -128,16 +128,26 @@ uint64_t fetchBlock(u_int64_t cant_be_used , u_int64_t page_swapped_in)
     return frame_to_evict;
 }
 
+//uint64_t AdressOffset(uint64_t virtualAddress , int depth)
+//{
+//    depth++;
+//    return virtualAddress >> (VIRTUAL_ADDRESS_WIDTH - (depth * OFFSET_WIDTH));
+//}
+
 uint64_t AdressOffset(uint64_t virtualAddress , int depth)
 {
-    depth++;
-    return virtualAddress >> (VIRTUAL_ADDRESS_WIDTH - (depth * OFFSET_WIDTH));
+    return virtualAddress >>( (TABLES_DEPTH - depth) *  OFFSET_WIDTH);
 }
+
+//uint64_t AddressSlicer(uint64_t addr , int depth)
+//{
+//    depth++;
+//    return addr % (1 << ( (TABLES_DEPTH - depth) *  OFFSET_WIDTH));
+//}
 
 uint64_t AddressSlicer(uint64_t addr , int depth)
 {
-    depth++;
-    return addr % (1 << (VIRTUAL_ADDRESS_WIDTH - (depth * OFFSET_WIDTH)));
+    return addr % (1 << (TABLES_DEPTH - depth) *  OFFSET_WIDTH);
 }
 
 uint64_t getPageRoute(uint64_t page)

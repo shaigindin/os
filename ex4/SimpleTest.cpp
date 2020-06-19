@@ -20,5 +20,9 @@ int main(int argc, char **argv) {
     }
     printf("success\n");
 
+//    std::cout << TABLES_DEPTH;
+//    print_ram();
+//    std::cout << AdressOffset2(30, 1) << "\n";
+//    std::cout << AddressSlicer2(30,1);
     return 0;
 }
