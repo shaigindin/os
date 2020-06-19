@@ -3,4 +3,12 @@ project(ex4)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(ex4 SimpleTest.cpp PhysicalMemory.cpp VirtualMemory.cpp)
+include_directories(.)
+
+add_executable(ex4
+        MemoryConstants.h
+        PhysicalMemory.cpp
+        PhysicalMemory.h
+        SimpleTest.cpp
+        VirtualMemory.cpp
+        VirtualMemory.h)

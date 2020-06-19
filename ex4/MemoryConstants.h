@@ -16,12 +16,12 @@ typedef int word_t;
 
 
 // number of bits in a physical address
-#define PHYSICAL_ADDRESS_WIDTH 7
+#define PHYSICAL_ADDRESS_WIDTH 10
 // RAM size in words
 #define RAM_SIZE (1LL << PHYSICAL_ADDRESS_WIDTH)
 
 // number of bits in a virtual address
-#define VIRTUAL_ADDRESS_WIDTH 11
+#define VIRTUAL_ADDRESS_WIDTH 20
 // virtual memory size in words
 #define VIRTUAL_MEMORY_SIZE (1LL << VIRTUAL_ADDRESS_WIDTH)
 

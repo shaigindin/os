@@ -26,12 +26,3 @@ int VMread(uint64_t virtualAddress, word_t* value);
 int VMwrite(uint64_t virtualAddress, word_t value);
 
 
-void print_ram();
-
-uint64_t AdressOffset(uint64_t virtualAddress , int depth);
-
-uint64_t AddressSlicer(uint64_t addr , int depth);
-
-uint64_t AddressSlicer2(uint64_t addr , int depth);
-
-uint64_t AdressOffset2(uint64_t virtualAddress , int depth);

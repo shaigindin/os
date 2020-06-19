@@ -1,6 +1,3 @@
-//TODO: (1) delete iostream
-//TODO: (2) delete the ram_insert function from the header file and from the .cpp
-#include <iostream>
 #include "VirtualMemory.h"
 #include "PhysicalMemory.h"
 
@@ -22,9 +19,9 @@ void VMinitialize()
     clearTable(0);
 }
 
-u_int64_t abs(u_int64_t page_swapped_in , u_int64_t current_frame_index)
+uint64_t abs(uint64_t page_swapped_in , uint64_t current_frame_index)
 {
-    if ((page_swapped_in - current_frame_index) < 0)
+    if (((long)page_swapped_in - (long)current_frame_index) < 0)
     {
         return current_frame_index - page_swapped_in;
     }
@@ -32,7 +29,7 @@ u_int64_t abs(u_int64_t page_swapped_in , u_int64_t current_frame_index)
 }
 
 
-u_int64_t min(u_int64_t a , u_int64_t b)
+uint64_t min(uint64_t a , uint64_t b)
 {
     if (a > b)
     {
@@ -42,20 +39,20 @@ u_int64_t min(u_int64_t a , u_int64_t b)
 }
 
 
-int DfsFindBlank(u_int64_t cant_be_used , int *max_frame ,
-                 int depth , uint64_t *availabe_frame , u_int64_t current_frame_index ,
-                 u_int64_t father , u_int64_t offset , u_int64_t page_swapped_in , int *max_value ,
-                 u_int64_t *frame_to_evict , u_int64_t trace ,
-                 u_int64_t *page_to_evict_add_in_father ,
-                 u_int64_t *page_to_evict)
+int DfsFindBlank(uint64_t cant_be_used , int *max_frame ,
+                 int depth , uint64_t *availabe_frame , uint64_t current_frame_index ,
+                 uint64_t father , uint64_t offset , uint64_t page_swapped_in , int *max_value ,
+                 uint64_t *frame_to_evict , uint64_t trace ,
+                 uint64_t *page_to_evict_add_in_father ,
+                 uint64_t *page_to_evict)
 {
-    if (current_frame_index > *max_frame)
+    if ((long)current_frame_index > (long)*max_frame)
     {
         *max_frame = current_frame_index;
     }
     if (depth == TABLES_DEPTH)
     {
-        u_int64_t a = abs(page_swapped_in , trace);
+        uint64_t a = abs(page_swapped_in , trace);
         int page_score = min(NUM_PAGES - a , a);
         if (page_score > *max_value)
         {
@@ -77,7 +74,7 @@ int DfsFindBlank(u_int64_t cant_be_used , int *max_frame ,
             is_all_zero = false;
             father = current_frame_index;
             offset = i;
-            u_int64_t trace1 = trace + offset;
+            uint64_t trace1 = trace + offset;
             if (DfsFindBlank(cant_be_used , max_frame , depth + 1 , availabe_frame ,
                              next_frame_index , father , offset , page_swapped_in , max_value ,
                              frame_to_evict , trace1 , page_to_evict_add_in_father , page_to_evict))
@@ -99,18 +96,18 @@ int DfsFindBlank(u_int64_t cant_be_used , int *max_frame ,
 }
 
 
-uint64_t fetchBlock(u_int64_t cant_be_used , u_int64_t page_swapped_in)
+uint64_t fetchBlock(uint64_t cant_be_used , uint64_t page_swapped_in)
 {
     int max_value = -1;
     int max_frame = 0 , depth = 0;
-    u_int64_t availabe_frame = 0;
-    u_int64_t current_frame = 0;
-    u_int64_t father = 0;
-    u_int64_t offset = 0;
-    u_int64_t frame_to_evict;
-    u_int64_t trace = 0;
-    u_int64_t page_to_evict_add_in_father;
-    u_int64_t page_to_evict = 0;
+    uint64_t availabe_frame = 0;
+    uint64_t current_frame = 0;
+    uint64_t father = 0;
+    uint64_t offset = 0;
+    uint64_t frame_to_evict;
+    uint64_t trace = 0;
+    uint64_t page_to_evict_add_in_father;
+    uint64_t page_to_evict = 0;
     // OPTIONS 1 AND 2
     if (DfsFindBlank(cant_be_used , &max_frame , depth , &availabe_frame , current_frame , father ,
                      offset , page_swapped_in , &max_value , &frame_to_evict , trace ,
@@ -128,22 +125,11 @@ uint64_t fetchBlock(u_int64_t cant_be_used , u_int64_t page_swapped_in)
     return frame_to_evict;
 }
 
-//uint64_t AdressOffset(uint64_t virtualAddress , int depth)
-//{
-//    depth++;
-//    return virtualAddress >> (VIRTUAL_ADDRESS_WIDTH - (depth * OFFSET_WIDTH));
-//}
 
 uint64_t AdressOffset(uint64_t virtualAddress , int depth)
 {
     return virtualAddress >>( (TABLES_DEPTH - depth) *  OFFSET_WIDTH);
 }
-
-//uint64_t AddressSlicer(uint64_t addr , int depth)
-//{
-//    depth++;
-//    return addr % (1 << ( (TABLES_DEPTH - depth) *  OFFSET_WIDTH));
-//}
 
 uint64_t AddressSlicer(uint64_t addr , int depth)
 {
@@ -229,7 +215,7 @@ uint64_t getLogicPageFromLogigAdress(uint64_t virtualAddress)
 int checkAddressValidy(uint64_t addr)
 {
 
-    return !(addr >= 0 && addr < VIRTUAL_MEMORY_SIZE);
+    return !((long)addr >= 0 && (long)addr < VIRTUAL_MEMORY_SIZE);
 }
 
 
@@ -273,10 +259,3 @@ int VMwrite(uint64_t virtualAddress , word_t value)
             WRITE, is_clean);
     return SUCCESS;
 }
-
-void VMprint(){
-    print_ram();
-}
-
-
-

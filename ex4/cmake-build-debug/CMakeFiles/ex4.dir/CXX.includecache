@@ -12,13 +12,31 @@ climits
 stdint.h
 -
 
+/home/mercydude/University/semester05/os/projects/ex4/PhysicalMemory.cpp
+PhysicalMemory.h
+/home/mercydude/University/semester05/os/projects/ex4/PhysicalMemory.h
+vector
+-
+unordered_map
+-
+cassert
+-
+cstdio
+-
+
 /home/mercydude/University/semester05/os/projects/ex4/PhysicalMemory.h
 MemoryConstants.h
 /home/mercydude/University/semester05/os/projects/ex4/MemoryConstants.h
 
-/home/mercydude/University/semester05/os/projects/ex4/VirtualMemory.cpp
-iostream
+/home/mercydude/University/semester05/os/projects/ex4/SimpleTest.cpp
+VirtualMemory.h
+/home/mercydude/University/semester05/os/projects/ex4/VirtualMemory.h
+cstdio
 -
+cassert
+-
+
+/home/mercydude/University/semester05/os/projects/ex4/VirtualMemory.cpp
 VirtualMemory.h
 /home/mercydude/University/semester05/os/projects/ex4/VirtualMemory.h
 PhysicalMemory.h
