@@ -158,51 +158,51 @@ void readRec(uint64_t virtualAddress , word_t *value , int depth ,
              word_t *next_address , word_t current_frame_index , uint64_t restoredPageIndex ,
              uint64_t page_swapped_in , int rw, bool IS_CLEAN)
 {
-    //we arrived to leafe (frame which store the page data)
-    if (TABLES_DEPTH == depth)
-    {
-        // if the block was cleand and need to restored from HD
-        if (IS_CLEAN) {
-            PMrestore(current_frame_index , restoredPageIndex);
-        }
-        uint64_t offset = AdressOffset(virtualAddress , depth);
-        //READ
-        if (rw == READ)
-        {
-            PMread(current_frame_index * PAGE_SIZE + offset , next_address);
-            *value = *next_address;
-
-        }
-        else // WRITE
-        {
-            PMwrite(current_frame_index * PAGE_SIZE + offset , *value);
-        }
-        return;
-    }
-    // if need to locate new frame
     if (*next_address == 0)
     {
-        // find the frame to erase
+        if (TABLES_DEPTH == depth)
+        {
+            if (IS_CLEAN) {
+                PMrestore(current_frame_index , restoredPageIndex);
+            }
+            uint64_t offset = AdressOffset(virtualAddress , depth);
+            if (rw == READ)
+            {
+                PMread(current_frame_index * PAGE_SIZE + offset , next_address);
+                *value = *next_address;
+            }
+            else // WRITE
+            {
+                PMwrite(current_frame_index * PAGE_SIZE + offset , *value);
+            }
+            return;
+        }
         uint64_t unused_frame = fetchBlock(current_frame_index , page_swapped_in);
-        //erase block
         clearTable(unused_frame);
-        // if we erase the frame that should hold the page vars (the leafe) we should restore date from HD later
         if (depth == TABLES_DEPTH - 1) {IS_CLEAN = true ;}
-        // slice offset
         uint64_t offset = AdressOffset(virtualAddress , depth);
-        //write to ram address the number of frame (the adress of the son)
         PMwrite((current_frame_index) * PAGE_SIZE + offset , unused_frame);
         *next_address = unused_frame;
         readRec(virtualAddress , value , depth ,
                 next_address , current_frame_index , restoredPageIndex , page_swapped_in , rw, IS_CLEAN);
     }
-    // if need to jump to the next table
+    else if (TABLES_DEPTH == depth)
+    {
+        *value = *next_address;
+        return;
+    }
     else if (*next_address != 0)
     {
         virtualAddress = AddressSlicer(virtualAddress , depth); // slicing the next_address
         depth++;
         uint64_t offset = AdressOffset(virtualAddress , depth);
         current_frame_index = *next_address;
+        if (TABLES_DEPTH == depth && rw == WRITE)
+        {
+            PMrestore((*next_address) , restoredPageIndex);
+            PMwrite((*next_address) * PAGE_SIZE + offset , *value);
+            return;
+        }
         PMread((*next_address) * PAGE_SIZE + offset , next_address);
         readRec(virtualAddress , value , depth ,
                 next_address , current_frame_index , restoredPageIndex , page_swapped_in , rw, IS_CLEAN);
@@ -218,8 +218,7 @@ uint64_t getLogicPageFromLogigAdress(uint64_t virtualAddress)
 
 int checkAddressValidy(uint64_t addr)
 {
-
-    return !(addr >= 0 && addr < VIRTUAL_MEMORY_SIZE);
+    return !(addr >= 0 && addr < (1 << VIRTUAL_ADDRESS_WIDTH));
 }
 
 
@@ -245,12 +244,10 @@ int VMread(uint64_t virtualAddress , word_t *value)
 
 int VMwrite(uint64_t virtualAddress , word_t value)
 {
-
     if (checkAddressValidy(virtualAddress))
     {
         return FAILURE; // failed
     }
-
     int depth = 0;
     uint64_t page_swapped_in = getLogicPageFromLogigAdress(virtualAddress);
     word_t next_address;
@@ -267,6 +264,3 @@ int VMwrite(uint64_t virtualAddress , word_t value)
 void VMprint(){
     print_ram();
 }
-
-
-

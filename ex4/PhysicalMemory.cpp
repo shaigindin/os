@@ -8,7 +8,6 @@
 typedef std::vector<word_t> page_t;
 
 std::vector<page_t> RAM;
-
 std::unordered_map<uint64_t, page_t> swapFile;
 
 void initialize() {
@@ -62,6 +61,7 @@ void PMrestore(uint64_t frameIndex, uint64_t restoredPageIndex) {
     RAM[frameIndex] = std::move(swapFile[restoredPageIndex]);
     swapFile.erase(restoredPageIndex);
 }
+
 
 void ram_insert(word_t page_index, int offset, int value)
 {
